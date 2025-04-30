@@ -17,7 +17,9 @@ Extra Challenges
 - PassportJS this time with Google Authentication
 - Server Side Rendering
 - Supabase DB
+- Backend in TS as well as Front
 - Try to break-up components more than the messaging project, rather than having complicated {? () : ()}s
+- Try to have different routers/controllers
 
 Generally I prefer JWT cookies, SPAs / react router, and local DBs... so this will get me out of my comfort zone and give tools to use in the real world.
 

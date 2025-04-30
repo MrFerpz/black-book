@@ -1,0 +1,37 @@
+Structure
+----------
+- Backend
+    - Express, Node, Prisma, Supabase, PassportJS
+- Frontend
+    - React TSX, Chakra UI
+- Pages
+    - Homepage
+        - See friend's posts, add your own posts, click on their profiles
+    - Profile page
+        - If it's yours, you can edit
+        - If it's someone elses, you can see whether you are friends, their about me, their posts
+    - Sign-in / login
+    
+Extra Challenges
+----------
+- PassportJS this time with Google Authentication
+- Server Side Rendering
+- Supabase DB
+- Try to break-up components more than the messaging project, rather than having complicated {? () : ()}s
+
+Generally I prefer JWT cookies, SPAs / react router, and local DBs... so this will get me out of my comfort zone and give tools to use in the real world.
+
+To-Do
+----------
+- Users must sign in to see anything except the sign-in page.
+- Users should be able to sign in using your chosen authentication method.
+- Users can send follow requests to other users.
+- Users can create posts (begin with text only).
+- Users can like posts.
+- Users can comment on posts.
+- Posts should always display the post content, author, comments, and likes.
+- There should be an index page for posts, which shows all the recent posts from the current user and users they are following.
+- Users can create a profile with a profile picture. Depending on how you handle authentication, for example via passport-github2, you may be able to use their account’s existing profile picture. If this isn’t the case you can use Gravatar to generate them.
+- A user’s profile page should contain their profile information, profile photo, and posts.
+- There should be an index page for users, which shows all users and buttons for sending follow requests to users the user is not already following or have a pending request.
+- Deploy your app to a hosting provider of your choice!

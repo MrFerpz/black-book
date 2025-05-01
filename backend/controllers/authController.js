@@ -38,8 +38,24 @@ async function login(req, res, next) {
     })(req, res, next);
 }
 
+// middleware in case we need to check they're logged in
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) 
+    return next();
+    res.json("Error: user not logged in.");
+    // can handle redirects on frontend
+  }
+
+function logout(req, res) {
+    req.logout(function(err) {
+    if (err) return next(err);
+    res.json("Logged out.");
+})};
+
 module.exports = {
     strategy,
     login,
-    signup
+    signup,
+    isLoggedIn,
+    logout
 }

@@ -13,8 +13,15 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 
+// express-session setup
+app.use(session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {secure: false}
+}));
+
 // passport setup
-app.use(session());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(strategy)

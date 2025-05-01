@@ -44,5 +44,5 @@ passport.deserializeUser(async (id, done) => {
 app.use("/", indexRouter);
 
 // run server
-console.log("Up on 3000")
-app.listen(3000)
+console.log("Up on 4000")
+app.listen(4000)

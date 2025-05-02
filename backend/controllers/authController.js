@@ -3,6 +3,8 @@ const passport = require('passport')
 const bcrypt = require('bcrypt');
 const prisma = require('../prisma/prisma');
 
+// reminder, controller functions needs to return something (res.json, res.status, res.send etc)
+
 // setting up LocalStrategy
 const strategy = new LocalStrategy(
     async function (username, password, done) {

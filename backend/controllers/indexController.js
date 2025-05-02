@@ -1,5 +1,8 @@
-const bcrypt = require('bcrypt');
-
+const prisma = require('prisma')
 // reminder, controller needs to return something (res.json, res.status, res.send etc)
 
-module.exports = {  }
+async function getAllPosts() {
+    return await prisma.getAllPosts()
+}
+
+module.exports = { getAllPosts }

@@ -31,9 +31,14 @@ async function signup(username, password) {
     })
 }
 
+async function getAllPosts() {
+    return await prisma.posts.findMany()
+}
+
 module.exports = { 
     findUsers, 
     signup, 
     findUser, 
-    findUserByName 
+    findUserByName,
+    getAllPosts
 }

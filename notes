@@ -36,3 +36,9 @@ To-Do
 - A user’s profile page should contain their profile information, profile photo, and posts.
 - There should be an index page for users, which shows all users and buttons for sending follow requests to users the user is not already following or have a pending request.
 - Deploy your app to a hosting provider of your choice!
+
+Learnings
+------------
+- ShadCN blocks are cracked
+- You can overwrite tailwind styling within the prop
+- Prisma many-to-many relations handled by @relation("name") for both

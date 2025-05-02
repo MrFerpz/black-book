@@ -38,20 +38,14 @@ export function LoginForm({
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
                 </div>
                 <Input id="password" type="password" required />
               </div>
               <div className="flex flex-col gap-3">
-                <Button type="submit" className="w-full">
+                <Button type="submit" className="w-full hover:cursor-pointer">
                   Login
                 </Button>
-                <Button variant="outline" className="w-full">
+                <Button variant="outline" className="w-full hover:cursor-pointer">
                   Login with Google
                 </Button>
               </div>

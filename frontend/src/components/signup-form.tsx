@@ -47,7 +47,7 @@ async function signup(e: any) {
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Signup for an account</CardTitle>
+          <CardTitle>Sign-up for an account</CardTitle>
           <CardDescription>
             Enter your email and password below.
           </CardDescription>
@@ -76,10 +76,16 @@ async function signup(e: any) {
                 required/>
               </div>
               <div className="flex flex-col gap-3">
-                <Button className="hover:bg-blue-500 hover:text-white hover:cursor-pointer w-full" type="submit">
+                <Button className="hover:bg-slate-200 hover:text-black hover:border hover:cursor-pointer w-full" type="submit">
                   Sign Up
                 </Button>
               </div>
+              <div className="mt-4 text-center text-sm">
+                Already have an account?{" "}
+              <a href="/login" className="underline underline-offset-4">
+                Login
+              </a>
+            </div>
             </div>
           </form>
         </CardContent>

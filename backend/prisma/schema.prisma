@@ -14,7 +14,7 @@ model User {
   username        String   @db.VarChar
   password        String   @db.VarChar
   name            String?  @db.VarChar
-  authoredPosts   Post[]   
+  authoredPosts   Post[]  
   likedPosts      Post[]   @relation("Likes")
   following       User[]   @relation("Following")
   followedBy      User[]   @relation("Following")
@@ -23,6 +23,7 @@ model User {
 model Post {
   id          Int           @id @default(autoincrement())
   created_at  DateTime      @default(now()) @db.Timestamptz(6)
+  content     String
   author      User          @relation(fields: [authorId], references: [id])
   authorId    Int
   likedBy     User[]        @relation("Likes")

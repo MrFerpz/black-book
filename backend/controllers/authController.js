@@ -48,8 +48,7 @@ async function login(req, res, next) {
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) 
     return next();
-    res.json("Error: user not logged in.");
-    // can handle redirects on frontend
+    res.status(401).json("Error: user not logged in.");
   }
 
 function logout(req, res) {

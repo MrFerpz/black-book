@@ -22,8 +22,12 @@ const strategy = new LocalStrategy(
 async function signup(req, res) {
     const username = req.body.username;
     const password = await bcrypt.hash(req.body.password, 10);
-    await prisma.signup(username, password)
-}
+    try {
+        await prisma.signup(username, password);
+        return res.status(200).json("Successfully signed up.")
+    } catch(err) {
+        return res.status(401).json(err)
+    }}  
 
 // telling it to use the above strategy ("local")
 async function login(req, res, next) {

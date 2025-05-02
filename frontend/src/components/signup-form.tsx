@@ -36,7 +36,6 @@ async function signup(e: any) {
       username: username,
       password: password
   })
-  console.log("signed up")
   router.push("/login");
   } catch(err) {
     console.log(err)
@@ -49,7 +48,7 @@ async function signup(e: any) {
         <CardHeader>
           <CardTitle>Sign-up for an account</CardTitle>
           <CardDescription>
-            Enter your email and password below.
+            Enter your email and password below
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -76,7 +75,7 @@ async function signup(e: any) {
                 required/>
               </div>
               <div className="flex flex-col gap-3">
-                <Button className="hover:bg-slate-200 hover:text-black hover:border hover:cursor-pointer w-full" type="submit">
+                <Button className="hover:bg-slate-700 hover:cursor-pointer w-full" type="submit">
                   Sign Up
                 </Button>
               </div>

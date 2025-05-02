@@ -3,11 +3,11 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function findUsers() {
-    return await prisma.users.findMany
+    return await prisma.user.findMany
 }
 
 async function findUser(id) {
-    return await prisma.users.findFirst({
+    return await prisma.user.findFirst({
         where: {
             id: id
         }
@@ -15,7 +15,7 @@ async function findUser(id) {
 }
 
 async function findUserByName(username) {
-    return await prisma.users.findFirst({
+    return await prisma.user.findFirst({
         where: {
             username: username
         }
@@ -23,7 +23,7 @@ async function findUserByName(username) {
 }
 
 async function signup(username, password) {
-    return await prisma.users.create({
+    return await prisma.user.create({
         data: {
             username: username,
             password: password,

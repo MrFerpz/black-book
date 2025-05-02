@@ -9,11 +9,40 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useState } from "react"
+import axios from "axios"
+import { useRouter } from "next/navigation"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  function updateUsername(e: any) {
+    setUsername(e.target.value)
+  }
+
+  function updatePassword(e: any) {
+    setPassword(e.target.value)
+  }
+
+  async function handleLogin(e: any) {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:4000/api/login", {
+        username: username,
+        password: password
+      })
+      router.push("/home")
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -24,22 +53,28 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleLogin}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="username">Username</Label>
                 <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
+                  id="username"
+                  placeholder="JohnDoe420"
                   required
+                  onChange={updateUsername}
                 />
               </div>
               <div className="grid gap-3">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
                 </div>
-                <Input id="password" type="password" required />
+                <Input 
+                id="password" 
+                type="password" 
+                required 
+                placeholder="********"
+                onChange={updatePassword}
+                />
               </div>
               <div className="flex flex-col gap-3">
                 <Button type="submit" className="w-full hover:cursor-pointer">

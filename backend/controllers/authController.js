@@ -54,7 +54,7 @@ function isLoggedIn(req, res, next) {
 function logout(req, res) {
     req.logout(function(err) {
     if (err) return next(err);
-    res.json("Logged out.");
+    return res.json("Logged out.");
 })};
 
 module.exports = {

@@ -32,7 +32,7 @@ async function signup(username, password) {
 }
 
 async function getAllPosts() {
-    return await prisma.posts.findMany()
+    return await prisma.post.findMany()
 }
 
 module.exports = { 

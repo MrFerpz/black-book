@@ -11,7 +11,8 @@ interface Post {
 async function getPosts(): Promise<Post[]> {
     try {
         const res = await axios.get("http://localhost:4000/api/posts");
-        return res.data;
+        const posts = res.data
+        return posts
     } catch(err) {
         console.log(err);
         return [];
@@ -21,16 +22,24 @@ async function getPosts(): Promise<Post[]> {
 export default async function HomePage() {
     const posts = await getPosts();
 
+    if (posts)
     return (
         <div>
-            {posts.map((post: Post) => {
-                return (
-                    <div key={post.id}>
-                        <div>{post.content}</div>
-                    </div>
-                )
-            })}
-            <LogoutButton className="hover:cursor-pointer">Log out</LogoutButton>
+            <div>
+                {posts.map((post: Post) => {
+                    return (
+                        <div key={post.id}>
+                            <div>{post.content}</div>
+                        </div>
+                        )
+                    })
+                }
+                <LogoutButton className="hover:cursor-pointer">Log out</LogoutButton>
+            </div>
         </div>
+    )
+
+    else return (
+        <div>No posts are available yet.</div>
     )
 }

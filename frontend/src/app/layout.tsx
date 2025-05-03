@@ -18,9 +18,8 @@ export default function RootLayout({
           <body className={"antialiased"}>
             <SidebarProvider>
               <AppSidebar/>
-              <SidebarTrigger>
-                {children}
-              </SidebarTrigger>
+              <SidebarTrigger/>
+                  {children}
             </SidebarProvider>
           </body>
         </html>

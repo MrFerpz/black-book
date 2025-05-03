@@ -7,4 +7,17 @@ async function getPosts(req, res) {
    return res.json(posts)
 }
 
-module.exports = { getPosts }
+// currently broken, userID undefined
+async function newPost(req, res) {
+   const content = req.body.content;
+   const userID = Number(req.user.id);
+   try {
+      await prisma.newPost(userID, content);
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+   return res.json("Successfully added a new post.")
+}
+
+module.exports = { getPosts, newPost }

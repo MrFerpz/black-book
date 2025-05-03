@@ -35,10 +35,20 @@ async function getAllPosts() {
     return await prisma.post.findMany()
 }
 
+async function newPost(userID, content) {
+    return await prisma.post.create({
+        data: {
+            authorId: userID,
+            content: content
+        }
+    })
+}
+
 module.exports = { 
     findUsers, 
     signup, 
     findUser, 
     findUserByName,
-    getAllPosts
+    getAllPosts,
+    newPost
 }

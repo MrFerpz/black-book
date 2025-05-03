@@ -11,5 +11,6 @@ indexRouter.get("/api/logout", authController.logout);
 
 // index
 indexRouter.get("/api/posts", indexController.getPosts);
+indexRouter.post("/api/posts", authController.isLoggedIn, indexController.newPost);
 
 module.exports = indexRouter

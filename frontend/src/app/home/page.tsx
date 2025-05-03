@@ -1,5 +1,6 @@
 import axios from "axios"
 import { LogoutButton } from "@/components/ui/logoutButton"
+import NewPostDrawer from "../../components/new-post-drawer"
 
 interface Post {
     id: number,
@@ -35,6 +36,7 @@ export default async function HomePage() {
                     })
                 }
                 <LogoutButton className="hover:cursor-pointer">Log out</LogoutButton>
+                <NewPostDrawer/>
             </div>
         </div>
     )

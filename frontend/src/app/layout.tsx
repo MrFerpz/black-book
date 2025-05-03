@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "../components/app-sidebar"
+import { SidebarWrapper } from "../components/layout/sidebar-wrapper"
+import { SidebarProvider } from "@/components/ui/sidebar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "For the foodies.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -17,8 +17,7 @@ export default function RootLayout({
         <html>
           <body className={"antialiased"}>
             <SidebarProvider>
-              <AppSidebar/>
-              <SidebarTrigger/>
+              <SidebarWrapper/>
                   {children}
             </SidebarProvider>
           </body>

@@ -36,7 +36,7 @@ async function login(req, res, next) {
     passport.authenticate('local', (err, user, info) => {
         if (err) return next(err);
         if (!user) return res.status(401).json(info);
-
+        req.user = user;
         req.logIn(user, err => {
             if (err) return next(err);
             return res.json({message: "Logged in successfully"}, user)
@@ -46,8 +46,10 @@ async function login(req, res, next) {
 
 // middleware in case we need to check they're logged in
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) 
-    return next();
+    if (req.isAuthenticated()) {
+        req.user = user;
+        return next();
+    }
     res.status(401).json("Error: user not logged in.");
   }
 

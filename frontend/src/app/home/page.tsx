@@ -1,7 +1,5 @@
-"use client"
 import axios from "axios"
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"
+import { LogoutButton } from "@/components/ui/logoutButton"
 
 interface Post {
     id: number,
@@ -10,42 +8,19 @@ interface Post {
     content: string
 }
 
-export default function Home() {
-    const router = useRouter();
-    const [posts, setPosts] = useState<Post[] | []>([]);
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        getPosts()
-    }, [])
-
-    async function getPosts() {
-        try {
-            const res = await axios.get("http://localhost:4000/api/posts");
-            const allPosts: Post[] = res.data;
-            console.log(allPosts);
-            setPosts(allPosts);
-            setLoading(false);
-        } catch(err) {
-            console.log(err)
-        }
+async function getPosts(): Promise<Post[]> {
+    try {
+        const res = await axios.get("http://localhost:4000/api/posts");
+        return res.data;
+    } catch(err) {
+        console.log(err);
+        return [];
     }
+}
 
-    async function logout() {
-        try {
-            await axios.get("http://localhost:4000/api/logout");
-            router.push("/");
-        } catch(err) {
-            console.log(err)
-        }
-    }
+export default async function HomePage() {
+    const posts = await getPosts();
 
-    if (loading) {
-        return (
-            <div>Loading posts...</div>
-        )
-    }
-    
     return (
         <div>
             {posts.map((post: Post) => {
@@ -55,6 +30,7 @@ export default function Home() {
                     </div>
                 )
             })}
-        <a className="text-blue-600 hover:cursor-pointer" onClick={logout}>Logout</a>
+            <LogoutButton className="hover:cursor-pointer">Log out</LogoutButton>
         </div>
-    )}
+    )
+}

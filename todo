@@ -1,0 +1,9 @@
+- Update existing pages to SSR (remove unnecessary useState -> just define the consts at the start of the func)
+- Populate homepage with
+    - Title
+    - Sidebar (Home, Profile, Friends)
+    - Add post button (drawer)
+    - Posts formatted lists
+        - Nicely formatted into cards
+        - Only friends
+- Work on profile page

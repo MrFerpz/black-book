@@ -1,5 +1,6 @@
 import axios from "axios"
 import { LogoutButton } from "@/components/ui/logoutButton"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import NewPostDrawer from "../../components/new-post-drawer"
 
 interface Post {
@@ -26,12 +27,18 @@ export default async function HomePage() {
     if (posts)
     return (
         <div>
-            <div>
+            <div className="w-full">
                 {posts.map((post: Post) => {
                     return (
-                        <div key={post.id}>
-                            <div>{post.content}</div>
-                        </div>
+                        <Card className = "w-9/10 mb-5 mt-5" key = {post.id}>
+                            <CardHeader>
+                                <CardTitle>Post by {post.authorID}</CardTitle>
+                            </CardHeader>
+                            <CardContent>{post.content}</CardContent>
+                            <CardFooter>
+                                Posted at DATE
+                            </CardFooter>
+                        </Card>
                         )
                     })
                 }

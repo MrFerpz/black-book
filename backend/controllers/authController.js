@@ -46,6 +46,8 @@ async function login(req, res, next) {
 
 // middleware in case we need to check they're logged in
 function isLoggedIn(req, res, next) {
+    console.log("checking authentication");
+    console.log(req.user);
     if (req.isAuthenticated()) {
         req.user = user;
         return next();

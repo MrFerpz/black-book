@@ -36,7 +36,7 @@ export function LoginForm({
       await axios.post("http://localhost:4000/api/login", {
         username: username,
         password: password
-      });
+      }, {withCredentials: true});
       router.push("/home")
     } catch(err) {
       console.log(err)

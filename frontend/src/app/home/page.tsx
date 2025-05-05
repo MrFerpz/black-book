@@ -23,7 +23,7 @@ interface User {
 
 async function getPosts(): Promise<Post[]> {
     try {
-        const res = await axios.get("http://localhost:4000/api/posts");
+        const res = await axios.get("http://localhost:4000/api/posts", {withCredentials: true});
         const posts = res.data
         return posts
     } catch(err) {
@@ -41,39 +41,41 @@ export default async function HomePage() {
 
     if (posts)
     return (
-        <div className="w-full h-full flex flex-col justify-content items-center">
-            <div className="h-[20px]"/>
-            <Image width="300" height="159" alt="Black Book Logo" src={Logo}></Image>
-            <Separator className="my-4"/>
-            <div className="h-[35px]">What's cookin'?</div>
-                <NewPostDrawer/>
-            <Separator className="my-4"/>
-            <div className="w-full">
-                {posts.map((post: Post) => {
-                    // format date & time
-                    const removedTZ = post.created_at.split(".");
-                    const formattedDate = removedTZ[0].split("T");
-                    const time = formattedDate[1];
-                    const date = formattedDate[0];
-                    return (
-                        <Card className = "w-9/10 mb-5 mt-5" key = {post.id}>
-                            <CardHeader className="flex space-between">
-                                <CardTitle>
+            <div className="w-full h-full flex flex-col justify-content items-center">
+                <div className="h-[20px]"/>
+                <Image width="300" height="159" alt="Black Book Logo" src={Logo}></Image>
+                <Separator className="my-4"/>
+                <div className="h-[35px]">What's cookin'?</div>
+                    <NewPostDrawer/>
+                <Separator className="my-4"/>
+                <div className="w-full">
+                    {posts.map((post: Post) => {
+                        // format date & time
+                        const removedTZ = post.created_at.split(".");
+                        const formattedDate = removedTZ[0].split("T");
+                        const time = formattedDate[1];
+                        const date = formattedDate[0];
+                        return (
+                            <Card className = "w-9/10 mb-5 mt-5" key = {post.id}>
+                                <CardHeader className="flex">
                                     <Avatar>
                                         <AvatarFallback>{post.author.username[0]}</AvatarFallback>
                                     </Avatar>
+                                    <CardTitle className="m-2">
                                     {post.author.username}
-                                </CardTitle>
-                                <CardContent className="text-xs">@{time} on {date}</CardContent>
-                            </CardHeader>
-                            <CardContent>{post.content}</CardContent>
-                        </Card>
-                        )
-                    })
-                }
-                <LogoutButton className="hover:cursor-pointer">Log out</LogoutButton>
+                                    </CardTitle>
+                                    <div className="flex w-1/1 justify-end">
+                                        <CardContent className="text-xs m-2 justify-self-end">@{time} on {date}</CardContent>
+                                    </div>
+                                </CardHeader>
+                                <CardContent>{post.content}</CardContent>
+                            </Card>
+                            )
+                        })
+                    }
+                    <LogoutButton className="hover:cursor-pointer">Log out</LogoutButton>
+                </div>
             </div>
-        </div>
     )
 
     else return (

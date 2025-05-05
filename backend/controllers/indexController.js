@@ -6,7 +6,6 @@ async function getPosts(req, res) {
    return res.json(posts)
 }
 
-// currently broken, userID undefined
 async function newPost(req, res) {
    const content = req.body.content;
    const userID = Number(req.user.id);
@@ -19,4 +18,16 @@ async function newPost(req, res) {
    return res.json("Successfully added a new post.")
 }
 
-module.exports = { getPosts, newPost }
+async function likePost(req, res) {
+   const postID = req.params.postID;
+   const likerUsername = req.body.username;
+   try {
+      await prisma.likePost(postID, likerUsername);
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+   return res.json("Liked post.")
+}
+
+module.exports = { getPosts, newPost, likePost }

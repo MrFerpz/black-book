@@ -3,9 +3,11 @@ import Image from 'next/image'
 import Logo from "../../../public/bbLogoCropped.png"
 import { Separator } from "@/components/ui/separator"
 import { LogoutButton } from "@/components/ui/logoutButton"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import NewPostDrawer from "../../components/new-post-drawer"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { ThumbsUp, MessageSquare, Share } from "lucide-react"
 
 interface Post {
     id: number,
@@ -18,7 +20,6 @@ interface Post {
 interface User {
     id: number,
     username: string,
-    name: string
 }
 
 async function getPosts(): Promise<Post[]> {
@@ -33,11 +34,25 @@ async function getPosts(): Promise<Post[]> {
 }
 
 async function getUser() {
-
+    try {
+        const res = await axios.get("http://localhost:4000/api/user");
+        return res.data;
+    } catch(err) {
+        console.log(err)
+    }
 }
 
 export default async function HomePage() {
+    const currentUser: any = getUser();
     const posts = await getPosts();
+
+    async function likePost(postID: number) {
+        try {
+            await axios.post(`http://localhost:4000/api/${postID}/like`, {username: currentUser[0]}, {withCredentials: true});
+        } catch(err) {
+            console.log(err)
+        }
+    }
 
     if (posts)
     return (
@@ -45,7 +60,7 @@ export default async function HomePage() {
                 <div className="h-[20px]"/>
                 <Image width="300" height="159" alt="Black Book Logo" src={Logo}></Image>
                 <Separator className="my-4"/>
-                <div className="h-[35px]">What's cookin'?</div>
+                <div className="h-[35px]">What's cookin', {currentUser[0]}?</div>
                     <NewPostDrawer/>
                 <Separator className="my-4"/>
                 <div className="w-full">
@@ -69,6 +84,13 @@ export default async function HomePage() {
                                     </div>
                                 </CardHeader>
                                 <CardContent>{post.content}</CardContent>
+
+                                Put into a separate function - keep the on-click function props here though so we can access post.id, author.id
+                                <div className="flex w-[4/10] pl-[24px] gap-2">
+                                    <Button onClick={likePost(post.id)}><ThumbsUp className="hover:cursor-pointer hover:opacity-40"/></Button>
+                                    <MessageSquare className="hover:cursor-pointer hover:opacity-40"/>
+                                    <Share className="hover:cursor-pointer hover:opacity-40"/>
+                                </div>
                             </Card>
                             )
                         })

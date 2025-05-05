@@ -53,11 +53,29 @@ async function newPost(userID, content) {
     })
 }
 
+async function likePost(postID, username) {
+    return await prisma.post.update({
+        where: {
+            id: postID
+        },
+        data: {
+            likedBy: {
+                findFirst: {
+                    where: {
+                        username: username
+                    }
+                }
+            }
+        }
+    })
+}
+
 module.exports = { 
     findUsers, 
     signup, 
     findUser, 
     findUserByName,
     getAllPosts,
-    newPost
+    newPost,
+    likePost
 }

@@ -3,7 +3,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function findUsers() {
-    return await prisma.user.findMany
+    return await prisma.user.findMany();
 }
 
 async function findUser(id) {

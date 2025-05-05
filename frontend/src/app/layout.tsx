@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SidebarWrapper } from "../components/layout/sidebar-wrapper"
 import { SidebarProvider } from "@/components/ui/sidebar";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default async function RootLayout({
               <SidebarWrapper/>
                   {children}
             </SidebarProvider>
+            <Toaster/>
           </body>
         </html>
   );

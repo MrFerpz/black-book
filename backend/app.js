@@ -8,11 +8,13 @@ const indexRouter = require('./routes/indexRouter')
 const app = express();
 const prisma = require('./prisma/prisma')
 
-// cors and json parsing
+// cors set up with frontend as origin and credentials required
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true
 }));
+
+// parsing middleware stuff
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 

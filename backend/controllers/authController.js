@@ -34,12 +34,14 @@ async function signup(req, res) {
 // telling it to use the above strategy ("local")
 async function login(req, res, next) {
     passport.authenticate('local', (err, user, info) => {
+        // err handling
         if (err) return next(err);
         if (!user) return res.status(401).json(info);
-        req.user = user;
+
+        // login func so req.user persists
         req.logIn(user, err => {
             if (err) return next(err);
-            return res.json({message: "Logged in successfully"}, user)
+            return res.json(user);
         });
     })(req, res, next);
 }
@@ -47,9 +49,8 @@ async function login(req, res, next) {
 // middleware in case we need to check they're logged in
 function isLoggedIn(req, res, next) {
     console.log("checking authentication");
-    console.log(req.user);
-    if (req.isAuthenticated()) {
-        req.user = user;
+    if (req.user) {
+        console.log(req.user)
         return next();
     }
     res.status(401).json("Error: user not logged in.");

@@ -13,9 +13,12 @@ import { useState } from "react"
 import { Textarea } from "../components/ui/textarea"
 import { Button } from "./ui/button"
 import axios from "axios"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
   export default function NewPostDrawer() {
     const [content, setContent] = useState("");
+    const router = useRouter();
 
     function postChange(e: any) {
         setContent(e.target.value)
@@ -25,8 +28,9 @@ import axios from "axios"
         try {
             await axios.post("http://localhost:4000/api/posts", {
                 content: content 
-            });
-            console.log("Successfully added post.")
+            }, {withCredentials: true});
+            toast("Successfully added post.");
+            router.refresh();
         } catch(err) {
             console.log(err)
         }
@@ -42,9 +46,9 @@ import axios from "axios"
                 </DrawerHeader>
                 <Textarea className="ml-5 w-[97.5%]" onChange={postChange} id="post"/>
                 <DrawerFooter>
-                    <Button className="hover:cursor-pointer" onClick={submitPost}>Submit</Button>
                     <DrawerClose>
-                        <div>Close</div>
+                    <Button className="hover:cursor-pointer" onClick={submitPost}>Submit</Button>
+                        <div>Cancel</div>
                     </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>

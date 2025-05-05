@@ -3,7 +3,6 @@ const passport = require('passport')
 const bcrypt = require('bcrypt');
 const prisma = require('../prisma/prisma');
 
-
 // reminder, controller functions needs to return something (res.json, res.status, res.send etc)
 
 // setting up LocalStrategy
@@ -47,14 +46,12 @@ async function login(req, res, next) {
     })(req, res, next);
 }
 
-async function returnUserDetails(req, res) {
-    const userDetails = [req.user.username, req.user.id];
-    return userDetails
+function returnUserDetails(req, res) {
+    console.log(req.user);
+    return res.json(req.user);
 }
 
-// middleware in case we need to check they're logged in
 function isLoggedIn(req, res, next) {
-    console.log("checking authentication");
     if (req.user) {
         console.log(req.user)
         return next();

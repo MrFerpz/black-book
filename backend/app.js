@@ -7,6 +7,7 @@ const { strategy } = require('./controllers/authController')
 const indexRouter = require('./routes/indexRouter')
 const app = express();
 const prisma = require('./prisma/prisma')
+const cookieParser = require('cookie-parser')
 
 // cors set up with frontend as origin and credentials required
 app.use(cors({
@@ -17,6 +18,7 @@ app.use(cors({
 // parsing middleware stuff
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser());
 
 // express-session setup
 app.use(session({
@@ -26,7 +28,8 @@ app.use(session({
     cookie: {
         httpOnly: true,
         secure: false,
-        maxAge: 1000 * 60 * 60
+        maxAge: 1000 * 60 * 60,
+        sameSite: "Lax"
     }
 }));
 

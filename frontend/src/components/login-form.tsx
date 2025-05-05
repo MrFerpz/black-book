@@ -33,10 +33,12 @@ export function LoginForm({
   async function handleLogin(e: any) {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/api/login", {
+      const res = await axios.post("http://localhost:4000/api/login", {
         username: username,
         password: password
       }, {withCredentials: true});
+      localStorage.setItem("username", username);
+      localStorage.setItem("id", res.data.id)
       router.push("/home")
     } catch(err) {
       console.log(err)

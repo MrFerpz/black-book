@@ -32,7 +32,16 @@ async function signup(username, password) {
 }
 
 async function getAllPosts() {
-    return await prisma.post.findMany()
+    return await prisma.post.findMany({
+        include: {
+            author: {
+                select: {
+                    username: true,
+                    name: true
+                }
+            }
+        }
+    })
 }
 
 async function newPost(userID, content) {

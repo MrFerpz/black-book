@@ -7,7 +7,14 @@ interface Post {
     id: number,
     authorID: number,
     createdAt: Date,
-    content: string
+    content: string,
+    author: User
+}
+
+interface User {
+    id: number,
+    username: string,
+    name: string
 }
 
 async function getPosts(): Promise<Post[]> {
@@ -32,7 +39,7 @@ export default async function HomePage() {
                     return (
                         <Card className = "w-9/10 mb-5 mt-5" key = {post.id}>
                             <CardHeader>
-                                <CardTitle>Post by {post.authorID}</CardTitle>
+                                <CardTitle>Post by {post.author.username}</CardTitle>
                             </CardHeader>
                             <CardContent>{post.content}</CardContent>
                             <CardFooter>

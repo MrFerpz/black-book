@@ -3,7 +3,6 @@ const prisma = require('../prisma/prisma');
 
 async function getPosts(req, res) {
    const posts = await prisma.getAllPosts();
-   console.log(posts)
    return res.json(posts)
 }
 

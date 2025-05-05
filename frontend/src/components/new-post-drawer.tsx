@@ -34,7 +34,7 @@ import axios from "axios"
 
     return (
         <Drawer>
-            <DrawerTrigger className="w-30 border-3 border-gray-300 border rounded-md bg-blue-300">New Post</DrawerTrigger>
+            <DrawerTrigger className="hover:cursor-pointer bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80 rounded-md p-2">New Post</DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
                     <DrawerTitle>New post</DrawerTitle>

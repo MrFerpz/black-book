@@ -21,7 +21,7 @@ export default function IndexRoute() {
     }, [])
 
     return (
-        <div className="flex justify-center align-center">
+        <div className="flex h-[100vh] justify-center align-center">
             <Skeleton className="h-[130px] w-[250px] rounded-xl"/>
         </div>
     )

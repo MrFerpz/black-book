@@ -3,6 +3,7 @@ import React from "react"
 import axios from "axios"
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function IndexRoute() {
     const router = useRouter();
@@ -20,8 +21,8 @@ export default function IndexRoute() {
     }, [])
 
     return (
-        <>
-            <div>Please wait...</div>
-        </>
+        <div className="flex justify-center align-center">
+            <Skeleton className="h-[130px] w-[250px] rounded-xl"/>
+        </div>
     )
 }

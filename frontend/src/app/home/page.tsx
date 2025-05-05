@@ -43,7 +43,7 @@ export default async function HomePage() {
                             </CardHeader>
                             <CardContent>{post.content}</CardContent>
                             <CardFooter>
-                                Posted at DATE
+                                Posted at {post.createdAt.toString()}
                             </CardFooter>
                         </Card>
                         )

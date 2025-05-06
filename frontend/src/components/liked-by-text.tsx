@@ -18,7 +18,7 @@ export default async function LikedByText({postID}: Props) {
 
     if (likers.length === 0) {
         return (
-            <div className={style}>No likes on this post yet. Be the first!</div>
+            <div className={style}>No likes on this post yet.</div>
         )
     }
 

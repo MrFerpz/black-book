@@ -18,8 +18,12 @@ export default async function RootLayout({
         <html>
           <body className={"antialiased"}>
             <SidebarProvider>
-              <SidebarWrapper/>
+              <div className="w-64 flex-shrink-0">
+                <SidebarWrapper/>
+              </div>
+              <div className="flex-grow overflow-y-auto">
                   {children}
+              </div>
             </SidebarProvider>
             <Toaster/>
           </body>

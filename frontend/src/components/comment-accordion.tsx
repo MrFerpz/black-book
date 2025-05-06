@@ -68,7 +68,7 @@ if (comments.length > 0)
                 <AccordionTrigger className="hover:cursor-pointer">See comments</AccordionTrigger>
                 <Separator/>
                             <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-3">
-                                <div>No comments yet. Be the first!</div>
+                                <div className="px-3">No comments yet. Be the first!</div>
                                 <CommentButton userID={userID} postID={postID}/>
                             </AccordionContent>
             </AccordionItem>

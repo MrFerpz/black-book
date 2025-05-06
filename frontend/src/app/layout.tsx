@@ -18,7 +18,7 @@ export default async function RootLayout({
         <html>
           <body className={"antialiased"}>
             <SidebarProvider>
-              <div className="w-64 flex-shrink-0">
+              <div className="max-w-64 flex-shrink-0">
                 <SidebarWrapper/>
               </div>
               <div className="flex-grow overflow-y-auto">

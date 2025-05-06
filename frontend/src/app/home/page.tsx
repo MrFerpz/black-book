@@ -101,7 +101,7 @@ export default async function HomePage() {
                                     <Share className="hover:cursor-pointer hover:opacity-40"/>
                                 </div>
                                 <LikedByText postID={post.id}/>
-                                <CommentAccordion postID={post.id}/>
+                                <CommentAccordion userID={user.id} postID={post.id}/>
                             </Card>
                             )
                         })

@@ -99,6 +99,16 @@ async function getComments(postID) {
     })
 }
 
+async function postComment(postID, userID, content) {
+    return await prisma.comment.create({
+        data: {
+            content: content,
+            authorId: userID,
+            postId: postID
+        }
+    })
+}
+
 module.exports = { 
     findUsers, 
     signup, 
@@ -108,5 +118,6 @@ module.exports = {
     newPost,
     likePost,
     getLikes,
-    getComments
+    getComments,
+    postComment
 }

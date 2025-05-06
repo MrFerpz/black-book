@@ -4,7 +4,8 @@ import axios from "axios"
 import CommentButton from "./comment-button"
 
 interface Props {
-    postID: Number
+    postID: Number,
+    userID: Number
 }
 
 interface Comment {
@@ -26,7 +27,7 @@ interface Post {
     content: string
 }
 
-export default async function CommentAccordion({postID}: Props) {
+export default async function CommentAccordion({postID, userID}: Props) {
 
     async function getComments(postID: Number) {
         const commentsData = await axios.get(`http://localhost:4000/api/${postID}/comments`, {
@@ -53,7 +54,9 @@ if (comments.length > 0)
                             </AccordionContent>
                         ))
                     }
-                    <CommentButton postID={postID}/>
+                    <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-2">
+                        <CommentButton userID={userID} postID={postID}/>
+                    </AccordionContent>
             </AccordionItem>
       </Accordion>
       </>
@@ -66,8 +69,8 @@ if (comments.length > 0)
                 <Separator/>
                             <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-3">
                                 <div>No comments yet. Be the first!</div>
+                                <CommentButton userID={userID} postID={postID}/>
                             </AccordionContent>
-                            <CommentButton postID={postID}/>
             </AccordionItem>
       </Accordion>
     )

@@ -15,6 +15,7 @@ indexRouter.get("/api/:postID/comments", indexController.getComments);
 // index
 indexRouter.get("/api/posts", indexController.getPosts);
 indexRouter.post("/api/posts", indexController.newPost);
-indexRouter.post("/api/:postID/likes", indexController.likePost)
+indexRouter.post("/api/:postID/likes", indexController.likePost);
+indexRouter.post("/api/post/:postID/comment", indexController.postComment);
 
 module.exports = indexRouter

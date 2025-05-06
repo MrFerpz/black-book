@@ -52,4 +52,17 @@ async function getComments(req, res) {
    }
 }
 
-module.exports = { getPosts, newPost, likePost, getLikes, getComments }
+async function postComment(req, res) {
+   const postID = Number(req.params.postID);
+   const userID = Number(req.body.userID);
+   const content = req.body.content
+   try {
+      await prisma.postComment(postID, userID, content)
+      return res.json("Success.")
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
+module.exports = { getPosts, newPost, likePost, getLikes, getComments, postComment }

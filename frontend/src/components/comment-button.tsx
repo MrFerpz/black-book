@@ -3,14 +3,14 @@ import axios from "axios";
 import { useState } from "react";
 import { Textarea } from "./ui/textarea";
 import { useRouter } from "next/navigation";
-import { Button } from "./ui/button";
-import { SendHorizontal } from "lucide-react";
+import { SendHorizontal, CircleX, MessageSquare } from "lucide-react";
 
 interface Props {
-    postID: Number
+    postID: Number,
+    userID: Number
 }
 
-export default function CommentButton({postID}: Props) {
+export default function CommentButton({postID, userID}: Props) {
     const [formVisible, setFormVisible] = useState(false);
     const [content, setContent] = useState("")
     const router = useRouter();
@@ -27,11 +27,14 @@ export default function CommentButton({postID}: Props) {
         setContent(e.target.value)
     }
 
-    async function submitComment() {
+    async function submitComment(e: any) {
+        e.preventDefault();
         try {
             await axios.post(`http://localhost:4000/api/post/${postID}/comment`, {
-            content: content
-        }, {withCredentials: true});
+            content: content,
+            userID: userID
+        }, { withCredentials: true });
+            setContent("")
             router.refresh();
         }
         catch (err) {
@@ -42,12 +45,14 @@ export default function CommentButton({postID}: Props) {
     if (formVisible) {
         return (
             <>
-                <div className="bg-slate-100 rounded-lg p-3 m-3">
+                <div className="bg-slate-100 rounded-lg p-1 m-1">
                     <form onSubmit={submitComment} className="flex">
-                        <Textarea autoFocus className="bg-white-900" onChange={contentChange}/>
-                        <SendHorizontal className=":hover-opacity-0.4" type="submit">Send</SendHorizontal>
+                        <Textarea value={content} placeholder="Add your comment here"autoFocus className="bg-white-900" onChange={contentChange}/>
+                        <div className="flex flex-col gap-2 p-1 m-1">
+                            <button type="submit"><SendHorizontal className="hover:opacity-40 hover:cursor-pointer">Send</SendHorizontal></button>
+                            <CircleX className="hover:opacity-40 hover:cursor-pointer" onClick={toggleVisibility}>Close</CircleX>
+                        </div>
                     </form>
-                    <Button onClick={toggleVisibility}>Close</Button>
                 </div>
             </>
         )
@@ -55,8 +60,9 @@ export default function CommentButton({postID}: Props) {
 
     return (
         <>
-        <div className="bg-slate-100 rounded-lg p-3 m-3">
-            <Button onClick={toggleVisibility}>Post comment</Button>
+        <div onClick={toggleVisibility} className="flex gap-3 bg-slate-100 rounded-lg p-3 hover:cursor-pointer hover:opacity-40">
+            <MessageSquare/>
+            <div>Add comment</div>
         </div>
         </>
     )

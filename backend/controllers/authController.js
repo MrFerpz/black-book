@@ -1,75 +1,78 @@
-const LocalStrategy = require('passport-local').Strategy
-const passport = require('passport')
 const bcrypt = require('bcrypt');
 const prisma = require('../prisma/prisma');
+const jwt = require('jsonwebtoken')
 
 // reminder, controller functions needs to return something (res.json, res.status, res.send etc)
 
-// setting up LocalStrategy
-const strategy = new LocalStrategy(
-    async function (username, password, done) {
-        const user = await prisma.findUserByName(username);
-        if (!user) {
-            return done(null, false, {message: "No user found."})
-        }
-        const match = await bcrypt.compare(password, user.password)
-        if (!match) {
-            return done(null, false, {message: "Incorrect password."})
-        }
-        return done(null, user)
-    }
-)
-
-// makes new user
 async function signup(req, res) {
     const username = req.body.username;
-    const password = await bcrypt.hash(req.body.password, 10);
+    const password = bcrypt(req.body.password, 10);
     try {
         await prisma.signup(username, password);
-        return res.status(200).json("Successfully signed up.")
+        return res.json("Successful sign-up.")
     } catch(err) {
-        return res.status(401).json(err)
-    }}  
-
-// telling it to use the above strategy ("local")
-async function login(req, res, next) {
-    passport.authenticate('local', (err, user, info) => {
-        // err handling
-        if (err) return next(err);
-        if (!user) return res.status(401).json(info);
-
-        // login func so req.user persists
-        req.logIn(user, err => {
-            if (err) return next(err);
-            return res.json(user);
-        });
-    })(req, res, next);
-}
-
-function returnUserDetails(req, res) {
-    console.log(req.user);
-    return res.json(req.user);
-}
-
-function isLoggedIn(req, res, next) {
-    if (req.user) {
-        console.log(req.user)
-        return next();
+        console.log(err);
+        return
     }
-    res.status(401).json("Error: user not logged in.");
-  }
+}
 
-function logout(req, res) {
-    req.logout(function(err) {
-    if (err) return next(err);
-    return res.json("Logged out.");
-})};
+async function login(req, res) {
+    // clean any existing tokens
+    res.clearCookie("token")
+
+    // find the user
+    const user = await prisma.findUserByName(req.body.username);
+
+    // compare username
+    if (!user) { 
+        return res.status(401).send("User not found.") 
+    };
+
+    // compare password
+    if (!bcrypt.compare(req.body.password, user.password)) {
+        return res.status(401).send("Incorrect password.")
+    };
+
+    // remove sensitive data from user object
+    const payload = {
+        id: user.id,
+        username: user.username,
+    }
+
+    // make the JWT token
+    const token = jwt.sign(payload, "megasecretkeyshhhhh", {expiresIn: "1h"});
+
+    // send it in the response in the form of an HTTP-only cookie
+    res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "Strict",
+        path: "/",
+        maxAge: 1000 * 60 * 60 * 2, // 2 hour session
+    });
+    res.json("Successfully logged in.")
+}
+
+async function isLoggedIn(req, res) {
+    console.log(req.cookies)
+    // decode token
+    const user = jwt.verify(req.cookies.token, "megasecretkeyshhhhh");
+    if (!user) {
+        req.user = user;
+        res.status(401).send("Not logged in.")
+    }
+
+    return res.json(user)
+}
+
+async function logout(req, res) {
+    res.clearCookie("token");
+    res.json("User has logged out.")
+}
 
 module.exports = {
-    strategy,
     login,
     signup,
     isLoggedIn,
     logout,
-    returnUserDetails
 }

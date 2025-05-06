@@ -23,7 +23,7 @@ interface User {
 
 async function getPosts(): Promise<Post[]> {
     try {
-        const res = await axios.get("http://localhost:4000/api/posts", {withCredentials: true});
+        const res = await axios.get("http://localhost:4000/api/posts", {withCredentials: true})
         const posts = res.data;
         return posts
     } catch(err) {
@@ -44,16 +44,15 @@ async function getUser(): Promise<User> {
 }
 
 export default async function HomePage() {
-    const currentUser: any = await getUser();
     const posts = await getPosts();
 
-    // async function likePost(postID: number) {
-    //     try {
-    //         await axios.post(`http://localhost:4000/api/${postID}/like`, {username: currentUser[0]}, {withCredentials: true});
-    //     } catch(err) {
-    //         console.log(err)
-    //     }
-    // }
+    async function likePost(postID: number) {
+        try {
+            await axios.post(`http://localhost:4000/api/${postID}/like`, {withCredentials: true});
+        } catch(err) {
+            console.log(err)
+        }
+    }
 
     if (posts)
     return (

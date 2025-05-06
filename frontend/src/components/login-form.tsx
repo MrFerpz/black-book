@@ -36,9 +36,8 @@ export function LoginForm({
       const res = await axios.post("http://localhost:4000/api/login", {
         username: username,
         password: password
-      }, {withCredentials: true});
-      localStorage.setItem("username", username);
-      localStorage.setItem("id", res.data.id)
+      }, { withCredentials: true });
+      console.log("nice")
       router.push("/home")
     } catch(err) {
       console.log(err)

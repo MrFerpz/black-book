@@ -2,11 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session')
-const passport = require('passport')
-const { strategy } = require('./controllers/authController')
 const indexRouter = require('./routes/indexRouter')
 const app = express();
-const prisma = require('./prisma/prisma')
 const cookieParser = require('cookie-parser')
 
 // cors set up with frontend as origin and credentials required
@@ -19,39 +16,6 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser());
-
-// express-session setup
-app.use(session({
-    secret: "secret",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        httpOnly: true,
-        secure: false,
-        maxAge: 1000 * 60 * 60,
-        sameSite: "Lax"
-    }
-}));
-
-// passport setup
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(strategy)
-
-passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-  
-passport.deserializeUser(async (id, done) => {
-    try {
-        const user = await prisma.findUser(id);
-        if (!user) 
-        return done(null, false);
-        done(null, user);
-    } catch (err) {
-        done(err);
-    }
-});
 
 app.use("/", indexRouter);
 

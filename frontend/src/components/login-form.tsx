@@ -33,11 +33,10 @@ export function LoginForm({
   async function handleLogin(e: any) {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:4000/api/login", {
+      await axios.post("http://localhost:4000/api/login", {
         username: username,
         password: password
       }, { withCredentials: true });
-      console.log("nice")
       router.push("/home")
     } catch(err) {
       console.log(err)

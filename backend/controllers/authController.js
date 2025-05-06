@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken')
 
 async function signup(req, res) {
     const username = req.body.username;
-    const password = bcrypt(req.body.password, 10);
+    const password = await bcrypt.hash(req.body.password, 10);
     try {
         await prisma.signup(username, password);
         return res.json("Successful sign-up.")
@@ -29,7 +29,8 @@ async function login(req, res) {
     };
 
     // compare password
-    if (!bcrypt.compare(req.body.password, user.password)) {
+    const isMatch = await bcrypt.compare(req.body.password, user.password)
+    if (!isMatch) {
         return res.status(401).send("Incorrect password.")
     };
 
@@ -43,25 +44,29 @@ async function login(req, res) {
     const token = jwt.sign(payload, "megasecretkeyshhhhh", {expiresIn: "1h"});
 
     // send it in the response in the form of an HTTP-only cookie
-    res.cookie("token", token, {
+    await res.cookie("token", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "Strict",
-        path: "/",
+        secure: false,
+        sameSite: "Lax",
         maxAge: 1000 * 60 * 60 * 2, // 2 hour session
     });
     res.json("Successfully logged in.")
 }
 
 async function isLoggedIn(req, res) {
-    console.log(req.cookies)
+    // check for cookie sent from browser
+    const token = req.cookies.token;
+
+    if (!token) {
+        return res.status(401).json("Not logged in.")
+    }
+
     // decode token
-    const user = jwt.verify(req.cookies.token, "megasecretkeyshhhhh");
+    const user = jwt.verify(token, "megasecretkeyshhhhh");
     if (!user) {
         req.user = user;
         res.status(401).send("Not logged in.")
     }
-
     return res.json(user)
 }
 

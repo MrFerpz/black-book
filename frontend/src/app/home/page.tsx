@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import NewPostDrawer from "../../components/new-post-drawer"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ThumbsUp, MessageSquare, Share } from "lucide-react"
+import { cookies } from "next/headers"
 
 interface Post {
     id: number,
@@ -23,7 +24,7 @@ interface User {
 
 async function getPosts(): Promise<Post[]> {
     try {
-        const res = await axios.get("http://localhost:4000/api/posts", {withCredentials: true})
+        const res = await axios.get("http://localhost:4000/api/posts", { withCredentials: true })
         const posts = res.data;
         return posts
     } catch(err) {
@@ -34,9 +35,15 @@ async function getPosts(): Promise<Post[]> {
 
 async function getUser(): Promise<User> {
     try {
-        const res = await axios.get("http://localhost:4000/api/user", {withCredentials: true});
-        console.log(res.data);
-        return res.data
+        const cookieStore = cookies();
+        const token = (await cookieStore).get("token");
+        const res = await axios.get("http://localhost:4000/api/user", {
+            headers: {
+                Cookie: token ? `token=${token.value}` : "",
+            }
+        });
+        const user = res.data
+        return user;
     } catch(err) {
         console.log(err);
         return {username: "", id: 0}
@@ -45,10 +52,11 @@ async function getUser(): Promise<User> {
 
 export default async function HomePage() {
     const posts = await getPosts();
+    const user = await getUser();
 
     async function likePost(postID: number) {
         try {
-            await axios.post(`http://localhost:4000/api/${postID}/like`, {withCredentials: true});
+            await axios.post(`http://localhost:4000/api/${postID}/like`, {}, {withCredentials: true});
         } catch(err) {
             console.log(err)
         }
@@ -60,7 +68,7 @@ export default async function HomePage() {
                 <div className="h-[20px]"/>
                 <Image width="300" height="159" alt="Black Book Logo" src={Logo}></Image>
                 <Separator className="my-4"/>
-                <div className="h-[35px]">What's cookin'</div>
+                <div className="h-[35px]">What's cookin', {user.username}?</div>
                     <NewPostDrawer/>
                 <Separator className="my-4"/>
                 <div className="w-full">

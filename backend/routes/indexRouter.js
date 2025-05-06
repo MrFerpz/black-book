@@ -12,7 +12,7 @@ indexRouter.get("/api/user", authController.isLoggedIn);
 
 // index
 indexRouter.get("/api/posts", indexController.getPosts);
-indexRouter.post("/api/posts", authController.isLoggedIn, indexController.newPost);
+indexRouter.post("/api/posts", indexController.newPost);
 indexRouter.post("/api/:postID/like", indexController.likePost)
 
 module.exports = indexRouter

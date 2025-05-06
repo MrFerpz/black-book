@@ -88,6 +88,13 @@ async function getComments(postID) {
     return await prisma.comment.findMany({
         where: {
             postId: postID
+        },
+        include: {
+            author: {
+                select: {
+                    username: true
+                }
+            }
         }
     })
 }

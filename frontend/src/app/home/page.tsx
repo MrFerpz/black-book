@@ -10,6 +10,7 @@ import { ThumbsUp, MessageSquare, Share } from "lucide-react"
 import { cookies } from "next/headers"
 import LikeButton from "../../components/like-button"
 import LikedByText from "@/components/liked-by-text"
+import CommentAccordion from "@/components/comment-accordion"
 
 interface Post {
     id: number,
@@ -100,6 +101,7 @@ export default async function HomePage() {
                                     <Share className="hover:cursor-pointer hover:opacity-40"/>
                                 </div>
                                 <LikedByText postID={post.id}/>
+                                <CommentAccordion postID={post.id}/>
                             </Card>
                             )
                         })

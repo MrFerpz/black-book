@@ -1,4 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion"
+import { Separator } from "./ui/separator"
 import axios from "axios"
 
 interface Props {
@@ -36,15 +37,34 @@ export default async function CommentAccordion({postID}: Props) {
 
     const comments = await getComments(postID);
 
-if (comments)
+if (comments.length > 0)
     return (
-        <Accordion type="single" collapsible className="w-full">
+    <>
+    <Separator/>
+        <Accordion type="single" collapsible className="w-full px-6">
             <AccordionItem value="comments">
-                <AccordionTrigger>See comments</AccordionTrigger>
+                <AccordionTrigger className="hover:cursor-pointer">See comments</AccordionTrigger>
+                <Separator/>
                     {comments.map((comment: Comment) => (
-                            <AccordionContent>{comment.content}</AccordionContent>
+                            <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-3" key={comment.id.toString()}>
+                                <div className="font-bold">{comment.author.username}</div>
+                                <div>{comment.content}</div>
+                            </AccordionContent>
                         ))
                     }
+            </AccordionItem>
+      </Accordion>
+      </>
+    )
+
+    return (
+        <Accordion type="single" collapsible className="w-full px-6">
+            <AccordionItem value="comments">
+                <AccordionTrigger className="hover:cursor-pointer">See comments</AccordionTrigger>
+                <Separator/>
+                            <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-3">
+                                <div>No comments yet. Be the first!</div>
+                            </AccordionContent>
             </AccordionItem>
       </Accordion>
     )

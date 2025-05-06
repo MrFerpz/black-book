@@ -84,6 +84,14 @@ async function getLikes(postID) {
     return likesObject["likedBy"];
 }
 
+async function getComments(postID) {
+    return await prisma.comment.findMany({
+        where: {
+            postId: postID
+        }
+    })
+}
+
 module.exports = { 
     findUsers, 
     signup, 
@@ -92,5 +100,6 @@ module.exports = {
     getAllPosts,
     newPost,
     likePost,
-    getLikes
+    getLikes,
+    getComments
 }

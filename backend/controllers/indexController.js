@@ -41,4 +41,15 @@ async function getLikes(req, res) {
    }
 }
 
-module.exports = { getPosts, newPost, likePost, getLikes }
+async function getComments(req, res) {
+   const postID = Number(req.params.postID);
+   try {
+      const comments = await prisma.getComments(postID);
+      return res.json(comments);
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
+module.exports = { getPosts, newPost, likePost, getLikes, getComments }

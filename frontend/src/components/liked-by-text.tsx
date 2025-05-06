@@ -33,6 +33,12 @@ export default async function LikedByText({postID}: Props) {
         )
     }
 
+    if (likers.length === 3) {
+        return (
+            <div>Liked by {likers[0].username}, {likers[1].username}, and {likers[2].username}.</div>
+        )
+    }
+
     return (
         <div>Liked by {likers[0].username}, {likers[1].username}, and {likers.length - 2} others.</div>
     )

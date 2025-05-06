@@ -53,21 +53,35 @@ async function newPost(userID, content) {
     })
 }
 
-async function likePost(postID, username) {
+async function likePost(postID, userID) {
     return await prisma.post.update({
         where: {
             id: postID
         },
         data: {
             likedBy: {
-                findFirst: {
-                    where: {
-                        username: username
-                    }
+                connect: {
+                        id: userID
                 }
             }
         }
     })
+}
+
+async function getLikes(postID) {
+    const likesObject = await prisma.post.findUnique({
+        where: {
+            id: postID
+        },
+        select: {
+            likedBy: {
+                select: {
+                    username: true
+                }
+            }
+        }
+    })
+    return likesObject["likedBy"];
 }
 
 module.exports = { 
@@ -77,5 +91,6 @@ module.exports = {
     findUserByName,
     getAllPosts,
     newPost,
-    likePost
+    likePost,
+    getLikes
 }

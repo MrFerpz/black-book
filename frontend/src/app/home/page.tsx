@@ -8,6 +8,8 @@ import NewPostDrawer from "../../components/new-post-drawer"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ThumbsUp, MessageSquare, Share } from "lucide-react"
 import { cookies } from "next/headers"
+import LikeButton from "../../components/like-button"
+import LikedByText from "@/components/liked-by-text"
 
 interface Post {
     id: number,
@@ -56,7 +58,7 @@ export default async function HomePage() {
 
     async function likePost(postID: number) {
         try {
-            await axios.post(`http://localhost:4000/api/${postID}/like`, {}, {withCredentials: true});
+            await axios.post(`http://localhost:4000/api/${postID}/like`, {username: user.username}, {withCredentials: true});
         } catch(err) {
             console.log(err)
         }
@@ -66,9 +68,9 @@ export default async function HomePage() {
     return (
             <div className="w-full h-full flex flex-col justify-content items-center">
                 <div className="h-[20px]"/>
-                <Image width="300" height="159" alt="Black Book Logo" src={Logo}></Image>
+                <Image style={{height: "auto"}} width={300} priority={true} alt="Black Book Logo" src={Logo}></Image>
                 <Separator className="my-4"/>
-                <div className="h-[35px]">What's cookin', {user.username}?</div>
+                <div className="h-[35px]">What's cookin', <b>{user.username}</b>?</div>
                     <NewPostDrawer/>
                 <Separator className="my-4"/>
                 <div className="w-full">
@@ -92,13 +94,12 @@ export default async function HomePage() {
                                     </div>
                                 </CardHeader>
                                 <CardContent>{post.content}</CardContent>
-
-                                Put into a separate function - keep the on-click function props here though so we can access post.id, author.id
                                 <div className="flex w-[4/10] pl-[24px] gap-2">
-                                    {/* <Button onClick={likePost(post.id)}><ThumbsUp className="hover:cursor-pointer hover:opacity-40"/></Button> */}
+                                    <LikeButton userID={user.id} postID={post.id}/>
                                     <MessageSquare className="hover:cursor-pointer hover:opacity-40"/>
                                     <Share className="hover:cursor-pointer hover:opacity-40"/>
                                 </div>
+                                <LikedByText postID={post.id}/>
                             </Card>
                             )
                         })

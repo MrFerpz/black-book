@@ -9,10 +9,11 @@ indexRouter.post("/api/signup", authController.signup);
 indexRouter.get("/api/authcheck", authController.isLoggedIn);
 indexRouter.get("/api/logout", authController.logout);
 indexRouter.get("/api/user", authController.isLoggedIn);
+indexRouter.get("/api/:postID/likes", indexController.getLikes)
 
 // index
 indexRouter.get("/api/posts", indexController.getPosts);
 indexRouter.post("/api/posts", indexController.newPost);
-indexRouter.post("/api/:postID/like", indexController.likePost)
+indexRouter.post("/api/:postID/likes", indexController.likePost)
 
 module.exports = indexRouter

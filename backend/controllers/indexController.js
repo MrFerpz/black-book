@@ -19,10 +19,10 @@ async function newPost(req, res) {
 }
 
 async function likePost(req, res) {
-   const postID = req.params.postID;
-   const likerUsername = req.body.username;
+   const postID = Number(req.params.postID);
+   const userID = Number(req.body.userID);
    try {
-      await prisma.likePost(postID, likerUsername);
+      await prisma.likePost(postID, userID);
    } catch(err) {
       console.log(err);
       return err
@@ -30,4 +30,15 @@ async function likePost(req, res) {
    return res.json("Liked post.")
 }
 
-module.exports = { getPosts, newPost, likePost }
+async function getLikes(req, res) {
+   const postID = Number(req.params.postID);
+   try {
+      const likes = await prisma.getLikes(postID);
+      return res.json(likes)
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
+module.exports = { getPosts, newPost, likePost, getLikes }

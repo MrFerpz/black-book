@@ -1,6 +1,7 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./ui/accordion"
 import { Separator } from "./ui/separator"
 import axios from "axios"
+import CommentButton from "./comment-button"
 
 interface Props {
     postID: Number
@@ -52,6 +53,7 @@ if (comments.length > 0)
                             </AccordionContent>
                         ))
                     }
+                    <CommentButton postID={postID}/>
             </AccordionItem>
       </Accordion>
       </>
@@ -65,6 +67,7 @@ if (comments.length > 0)
                             <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-3">
                                 <div>No comments yet. Be the first!</div>
                             </AccordionContent>
+                            <CommentButton postID={postID}/>
             </AccordionItem>
       </Accordion>
     )

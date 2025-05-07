@@ -108,15 +108,17 @@ async function postComment(postID, userID, content) {
     })
 }
 
-async function getUserAndPosts(userID) {
-    return await prisma.user.findUnique({
+async function getUserPosts(userID) {
+    return await prisma.post.findMany({
         where: {
-            id: userID
+            authorId: userID
         },
-        select: {
-            username: true,
-            bio: true,
-            authoredPosts: true
+        include: {
+            author: {
+                select: {
+                    username: true
+                }
+            }
         }
     })
 }
@@ -132,5 +134,5 @@ module.exports = {
     getLikes,
     getComments,
     postComment,
-    getUserAndPosts
+    getUserPosts
 }

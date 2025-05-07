@@ -25,6 +25,8 @@ interface Post {
 interface User {
     id: number,
     username: string,
+    bio: string,
+    authoredPosts: Post[]
 }
 
 async function getPosts(): Promise<Post[]> {
@@ -51,7 +53,7 @@ async function getUser(): Promise<User> {
         return user;
     } catch(err) {
         console.log(err);
-        return {username: "", id: 0}
+        return {username: "", id: 0, bio: "", authoredPosts: []}
     }
 }
 

@@ -22,10 +22,15 @@ interface Post {
 interface User {
     id: number,
     username: string,
+    bio: string,
+    authoredPosts: Post[]
 }
 
 export default function PostMap({posts, user}: Props) {
-            
+
+    console.log("posts: ", posts);
+    console.log("user: ", user);
+    
     return (
             <div className="w-full flex flex-col items-center">
                 {posts.map((post: Post) => {

@@ -89,9 +89,10 @@ async function getUserPosts(req, res) {
         req.user = user;
         res.status(401).send("Not logged in.")
     }
+    
     const userID = Number(user.id)
-    const userAndPosts = await prisma.getUserAndPosts(userID);
-    res.json(userAndPosts);
+    const userPosts = await prisma.getUserPosts(userID);
+    res.json(userPosts);
  }
  
 

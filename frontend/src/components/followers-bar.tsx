@@ -27,13 +27,13 @@ export default function FollowersBar({followedBy, following}: Props) {
                     <DialogHeader>
                     <DialogTitle>Followers</DialogTitle>
                     <DialogDescription>
-                        See who follows you.
+                        See followers.
                     </DialogDescription>
                     {followedBy.map(followingUser => {
                         let link = "/profile/" + followingUser.id;
                         return (
-                        <div className="mt-5">
-                            <div key={followingUser.id} className="flex gap-4 items-center">
+                        <div key={followingUser.id.toString()} className="mt-5">
+                            <div className="flex gap-4 items-center">
                                 <a href={link}>
                                     <Avatar>
                                         <AvatarFallback>{followingUser.username[0]}</AvatarFallback>
@@ -59,14 +59,14 @@ export default function FollowersBar({followedBy, following}: Props) {
                     <DialogHeader>
                         <DialogTitle>Following</DialogTitle>
                         <DialogDescription>
-                            See who you follow.
+                            See following.
                         </DialogDescription>
                     </DialogHeader>
                     {following.map(followedUser => {
                         let link = "/profile/" + followedUser.id;
                         return (
-                        <div className="mt-5">
-                            <div key={followedUser.id} className="flex gap-4 items-center">
+                        <div key={followedUser.id.toString()} className="mt-5">
+                            <div className="flex gap-4 items-center">
                                 <a href={link}>
                                     <Avatar>
                                         <AvatarFallback>{followedUser.username[0]}</AvatarFallback>

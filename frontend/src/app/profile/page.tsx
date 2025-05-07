@@ -46,5 +46,5 @@ return (
         </div>
         <FriendsPane/>
     </div>
-)
+    )
 }

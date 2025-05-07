@@ -1,8 +1,10 @@
 - Profile page
-    - Edit bio to look more elegant
-    - Add following/follower tabs
-    - Friend's profiles
+    - Edit bio to look more elegant - DONE
+    - Add following/follower tabs - DONE
     - Allow adding profile picture
+
+- Profile page by ID (other users)
+    - Friend's profiles
 
 - Sidebar
     - Existing friends

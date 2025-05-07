@@ -8,9 +8,8 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
   } from "@/components/ui/sidebar"
-
 import {
-    House, User, Settings
+    House, User, Settings, LogOut
 } from "lucide-react"
 
 const menu = [
@@ -28,11 +27,14 @@ const menu = [
         title: "Settings",
         url: "/settings",
         icon: Settings
+    },
+    { 
+        title: "Logout",
+        url: "/logout",
+        icon: LogOut
     }
 ]
 
-
- 
 export function AppSidebar() {
   return (
     <Sidebar>

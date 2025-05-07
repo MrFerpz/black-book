@@ -69,13 +69,6 @@ const user = {
 // so we know who the author is on their posts, comments, etc
 const currentUserID = data.currentUserID
 
-// Next up
-//
-// When interacting with postmap (likes/comments) it will think it's the user who's profile you are on.
-// Important to differentiate YOUR user object, and the person who's page you're on
-//
-// Disable edit bio
-
 return (
         <div className="grid h-full grid-rows-1 grid-cols-[1fr_auto]">
             <div>

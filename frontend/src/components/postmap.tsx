@@ -1,4 +1,4 @@
-import { LogoutButton } from "@/components/ui/logoutButton"
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ThumbsUp, MessageSquare, Share } from "lucide-react"
@@ -13,7 +13,6 @@ interface Props {
 }
 
 export default function PostMap({posts, userID}: Props) {
-    console.log(posts);
     return (
             <div className="w-full flex flex-col items-center">
                 {posts.map((post: Post) => {
@@ -52,7 +51,6 @@ export default function PostMap({posts, userID}: Props) {
                         )
                     })
                 }
-                <LogoutButton className="hover:cursor-pointer">Log out</LogoutButton>
             </div>
 
     )

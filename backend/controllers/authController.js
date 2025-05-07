@@ -75,9 +75,30 @@ async function logout(req, res) {
     res.json("User has logged out.")
 }
 
+async function getUserPosts(req, res) {
+    // check for cookie sent from browser
+    const token = req.cookies.token;
+ 
+    if (!token) {
+        return res.status(401).json("Not logged in.")
+    }
+ 
+    // decode token
+    const user = jwt.verify(token, "megasecretkeyshhhhh");
+    if (!user) {
+        req.user = user;
+        res.status(401).send("Not logged in.")
+    }
+    const userID = Number(user.id)
+    const userAndPosts = await prisma.getUserAndPosts(userID);
+    res.json(userAndPosts);
+ }
+ 
+
 module.exports = {
     login,
     signup,
     isLoggedIn,
     logout,
+    getUserPosts
 }

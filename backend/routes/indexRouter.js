@@ -9,6 +9,7 @@ indexRouter.post("/api/signup", authController.signup);
 indexRouter.get("/api/authcheck", authController.isLoggedIn);
 indexRouter.get("/api/logout", authController.logout);
 indexRouter.get("/api/user", authController.isLoggedIn);
+indexRouter.get("/api/user/posts", authController.getUserPosts)
 indexRouter.get("/api/:postID/likes", indexController.getLikes);
 indexRouter.get("/api/:postID/comments", indexController.getComments);
 

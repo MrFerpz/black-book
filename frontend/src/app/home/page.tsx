@@ -12,6 +12,7 @@ import LikeButton from "../../components/like-button"
 import LikedByText from "@/components/liked-by-text"
 import CommentAccordion from "@/components/comment-accordion"
 import FriendsPane from "@/components/friends-pane"
+import PostMap from "@/components/postmap"
 
 interface Post {
     id: number,
@@ -58,14 +59,6 @@ export default async function HomePage() {
     const posts = await getPosts();
     const user = await getUser();
 
-    async function likePost(postID: number) {
-        try {
-            await axios.post(`http://localhost:4000/api/${postID}/like`, {username: user.username}, {withCredentials: true});
-        } catch(err) {
-            console.log(err)
-        }
-    }
-
     if (posts)
     return (
             <div className="grid grid-rows-1 grid-cols-[1fr_auto]">
@@ -77,40 +70,7 @@ export default async function HomePage() {
                         <div className="text-xl h-[35px]">What's cookin', <b>{user.username}</b>?</div>
                             <NewPostDrawer/>
                         <Separator className="my-4"/>
-                        <div className="w-full flex flex-col items-center">
-                            {posts.map((post: Post) => {
-                                // format date & time
-                                const removedTZ = post.created_at.split(".");
-                                const formattedDate = removedTZ[0].split("T");
-                                const time = formattedDate[1];
-                                const date = formattedDate[0];
-                                return (
-                                    <Card className = "w-9/10 mb-5 mt-5" key = {post.id}>
-                                        <CardHeader className="flex">
-                                            <Avatar>
-                                                <AvatarFallback>{post.author.username[0]}</AvatarFallback>
-                                            </Avatar>
-                                            <CardTitle className="m-2">
-                                            {post.author.username}
-                                            </CardTitle>
-                                            <div className="flex w-1/1 justify-end">
-                                                <CardContent className="text-xs m-2 justify-self-end">@{time} on {date}</CardContent>
-                                            </div>
-                                        </CardHeader>
-                                        <CardContent>{post.content}</CardContent>
-                                        <div className="flex w-[4/10] pl-[24px] gap-2">
-                                            <LikeButton userID={user.id} postID={post.id}/>
-                                            <MessageSquare className="hover:cursor-pointer hover:opacity-40"/>
-                                            <Share className="hover:cursor-pointer hover:opacity-40"/>
-                                        </div>
-                                        <LikedByText postID={post.id}/>
-                                        <CommentAccordion userID={user.id} postID={post.id}/>
-                                    </Card>
-                                    )
-                                })
-                            }
-                            <LogoutButton className="hover:cursor-pointer">Log out</LogoutButton>
-                        </div>
+                        <PostMap user={user} posts={posts}/>
                     </div>
                 </div>
                 <FriendsPane/>

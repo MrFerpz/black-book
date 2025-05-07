@@ -100,4 +100,38 @@ async function getUserWithPosts(req, res) {
    }
 }
 
-module.exports = { getPosts, newPost, likePost, getLikes, getComments, postComment, putBio, getUser, getUserWithPosts }
+async function getFollowing(req, res) {
+   const userID = Number(req.params.userID);
+   try {
+      const data = await prisma.getFollowing(userID);
+      return res.json(data)
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
+async function getNotFollowing(req, res) {
+   const userID = Number(req.params.userID);
+   try {
+      const data = await prisma.getNotFollowing(userID);
+      return res.json(data)
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
+module.exports = { 
+   getPosts, 
+   newPost, 
+   likePost, 
+   getLikes, 
+   getComments, 
+   postComment, 
+   putBio, 
+   getUser, 
+   getUserWithPosts,
+   getFollowing,
+   getNotFollowing
+}

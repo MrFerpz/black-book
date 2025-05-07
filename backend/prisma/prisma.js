@@ -175,6 +175,55 @@ async function getUserWithPosts(userID) {
     })
 }
 
+async function getFollowing(userID) {
+    return await prisma.user.findUnique({
+        where: {
+            id: userID
+        },
+        select: {
+            following: {
+                select: {
+                    id: true,
+                    username: true
+                }
+            }
+        }
+    })
+}
+
+async function getNotFollowing(userID) {
+    // Get the IDs of users that userID is following
+    const followingData = await prisma.user.findUnique({
+        where: {
+            id: userID
+        },
+        select: {
+            following: {
+                select: {
+                    id: true
+                }
+            }
+        }
+    });
+    
+    // put IDs in array
+    const followingIds = followingData?.following.map(user => user.id) || [];
+    
+    // Find all users where ID is not in the following list and not the user themselves
+    return await prisma.user.findMany({
+        where: {
+            AND: [
+                { id: { not: userID } }, 
+                { id: { notIn: followingIds } }
+            ]
+        },
+        select: {
+            id: true,
+            username: true
+        }
+    });
+}
+
 module.exports = { 
     findUsers, 
     signup, 
@@ -189,5 +238,7 @@ module.exports = {
     getUserPosts,
     putBio,
     getUser,
-    getUserWithPosts
+    getUserWithPosts,
+    getFollowing,
+    getNotFollowing
 }

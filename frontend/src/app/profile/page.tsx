@@ -1,4 +1,4 @@
-import FriendsPane from "@/components/friends-pane"
+import FollowingPane from "@/components/following-pane";
 import ProfileCard from "@/components/profile-card"
 import { cookies } from "next/headers";
 import axios from "axios";
@@ -44,7 +44,7 @@ return (
             <ProfileCard user={user} currentUserID={user.id}/>
             <PostMap posts={posts} userID={user.id}/>
         </div>
-        <FriendsPane/>
+        <FollowingPane currentUserID={user.id}/>
     </div>
     )
 }

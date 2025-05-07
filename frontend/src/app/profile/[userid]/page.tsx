@@ -2,7 +2,7 @@ import axios from "axios";
 import { ProfileData, ProfileDataWithCurrentUser } from "@/app/interfaces/interfaces";
 import ProfileCard from "@/components/profile-card";
 import PostMap from "@/components/postmap";
-import FriendsPane from "@/components/friends-pane";
+import FriendsPane from "@/components/following-pane";
 import { cookies } from "next/headers";
 
 type Props = {

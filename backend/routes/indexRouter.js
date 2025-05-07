@@ -15,11 +15,13 @@ indexRouter.get("/api/:postID/likes", indexController.getLikes);
 indexRouter.get("/api/:postID/comments", indexController.getComments);
 indexRouter.get("/api/user/withposts/:userID", indexController.getUserWithPosts);
 
-// posts, comments, bios
+// posts, comments, bios, friends
 indexRouter.get("/api/posts", indexController.getPosts);
 indexRouter.post("/api/posts", indexController.newPost);
 indexRouter.post("/api/:postID/likes", indexController.likePost);
 indexRouter.post("/api/post/:postID/comment", indexController.postComment);
-indexRouter.put("/api/put/:userID/bio", indexController.putBio)
+indexRouter.put("/api/put/:userID/bio", indexController.putBio);
+indexRouter.get("/api/:userID/following", indexController.getFollowing);
+indexRouter.get("/api/:userID/notfollowing", indexController.getNotFollowing);
 
 module.exports = indexRouter

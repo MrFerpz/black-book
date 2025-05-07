@@ -38,7 +38,7 @@ import { toast } from "sonner"
 
     return (
         <Drawer>
-            <DrawerTrigger className="hover:cursor-pointer bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80 rounded-md p-2">New Post</DrawerTrigger>
+            <DrawerTrigger className="hover:cursor-pointer bg-blue-100 text-secondary-foreground shadow-xs hover:bg-blue-200 rounded-md px-6 py-3">New Post</DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
                     <DrawerTitle>New post</DrawerTitle>

@@ -4,7 +4,7 @@ import Logo from "../../../public/bbLogoCropped.png"
 import { Separator } from "@/components/ui/separator"
 import NewPostDrawer from "../../components/new-post-drawer"
 import { cookies } from "next/headers"
-import FriendsPane from "@/components/friends-pane"
+import FollowingPane from "@/components/following-pane"
 import PostMap from "@/components/postmap"
 import { User, Post, SimpleUser } from "../interfaces/interfaces"
 
@@ -54,7 +54,7 @@ export default async function HomePage() {
                         <PostMap userID={user.id} posts={posts}/>
                     </div>
                 </div>
-                <FriendsPane/>
+                <FollowingPane currentUserID={user.id}/>
         </div>
     )
 

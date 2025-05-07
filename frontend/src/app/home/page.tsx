@@ -13,21 +13,7 @@ import LikedByText from "@/components/liked-by-text"
 import CommentAccordion from "@/components/comment-accordion"
 import FriendsPane from "@/components/friends-pane"
 import PostMap from "@/components/postmap"
-
-interface Post {
-    id: number,
-    authorID: number,
-    created_at: string,
-    content: string,
-    author: User
-}
-
-interface User {
-    id: number,
-    username: string,
-    bio: string,
-    authoredPosts: Post[]
-}
+import { User, Post, SimpleUser } from "../interfaces/interfaces"
 
 async function getPosts(): Promise<Post[]> {
     try {
@@ -40,7 +26,7 @@ async function getPosts(): Promise<Post[]> {
     }
 }
 
-async function getUser(): Promise<User> {
+async function getUser(): Promise<SimpleUser> {
     try {
         const cookieStore = cookies();
         const token = (await cookieStore).get("token");
@@ -53,7 +39,7 @@ async function getUser(): Promise<User> {
         return user;
     } catch(err) {
         console.log(err);
-        return {username: "", id: 0, bio: "", authoredPosts: []}
+        return {username: "", id: 0}
     }
 }
 

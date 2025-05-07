@@ -5,18 +5,15 @@ import { ThumbsUp, MessageSquare, Share } from "lucide-react"
 import LikeButton from "./like-button"
 import LikedByText from "@/components/liked-by-text"
 import CommentAccordion from "@/components/comment-accordion"
-import { Post, User } from "@/app/interfaces/interfaces"
+import { Post, SimpleUser, User } from "@/app/interfaces/interfaces"
 
 interface Props {
     posts: Post[],
-    user: User
+    user: SimpleUser
 }
 
 export default function PostMap({posts, user}: Props) {
-
-    console.log("posts: ", posts);
-    console.log("user: ", user);
-    
+    console.log(posts);
     return (
             <div className="w-full flex flex-col items-center">
                 {posts.map((post: Post) => {
@@ -25,15 +22,20 @@ export default function PostMap({posts, user}: Props) {
                     const formattedDate = removedTZ[0].split("T");
                     const time = formattedDate[1];
                     const date = formattedDate[0];
+                    const link = "/profile/" + post.author.id;
                     return (
                         <Card className = "w-9/10 mb-5 mt-5" key = {post.id}>
                             <CardHeader className="flex">
-                                <Avatar>
-                                    <AvatarFallback>{post.author.username[0]}</AvatarFallback>
-                                </Avatar>
-                                <CardTitle className="m-2">
-                                {post.author.username}
-                                </CardTitle>
+                                <a href={link}>
+                                    <Avatar>
+                                        <AvatarFallback>{post.author.username[0]}</AvatarFallback>
+                                    </Avatar>
+                                </a>
+                                <a href={link}>
+                                    <CardTitle className="m-2">
+                                        {post.author.username}
+                                    </CardTitle>
+                                </a>
                                 <div className="flex w-1/1 justify-end">
                                     <CardContent className="text-xs m-2 justify-self-end">@{time} on {date}</CardContent>
                                 </div>

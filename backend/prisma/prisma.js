@@ -37,6 +37,7 @@ async function getAllPosts() {
             author: {
                 select: {
                     username: true,
+                    id: true
                 }
             }
         }
@@ -75,7 +76,8 @@ async function getLikes(postID) {
         select: {
             likedBy: {
                 select: {
-                    username: true
+                    username: true,
+                    id: true
                 }
             }
         }
@@ -91,7 +93,8 @@ async function getComments(postID) {
         include: {
             author: {
                 select: {
-                    username: true
+                    username: true,
+                    id: true
                 }
             }
         }

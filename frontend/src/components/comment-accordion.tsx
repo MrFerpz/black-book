@@ -38,6 +38,7 @@ export default async function CommentAccordion({postID, userID}: Props) {
     }
 
     const comments = await getComments(postID);
+    console.log(comments)
 
 if (comments.length > 0)
     return (
@@ -47,12 +48,17 @@ if (comments.length > 0)
             <AccordionItem value="comments">
                 <AccordionTrigger className="hover:cursor-pointer">See comments</AccordionTrigger>
                 <Separator/>
-                    {comments.map((comment: Comment) => (
+                    {comments.map((comment: Comment) => {
+                        let link = "/profile/" + comment.author.id.toString();
+                        return (
                             <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-3" key={comment.id.toString()}>
-                                <div className="font-bold">{comment.author.username}</div>
+                                <a href={link}>
+                                    <div className="font-bold">{comment.author.username}</div>
+                                </a>
                                 <div>{comment.content}</div>
                             </AccordionContent>
-                        ))
+                            )
+                        })
                     }
                     <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-2">
                         <CommentButton userID={userID} postID={postID}/>

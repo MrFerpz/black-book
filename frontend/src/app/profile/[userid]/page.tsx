@@ -4,12 +4,18 @@ import ProfileCard from "@/components/profile-card";
 import PostMap from "@/components/postmap";
 import FriendsPane from "@/components/friends-pane";
 
-export default async function otherProfile({params}: {params: Promise<{userid: string}>}) {
+type Props = {
+    params: {
+        userid: string
+    }
+}
 
-    const { userid } = await params;
-    console.log("userid = ", userid);
+export default async function UserProfile({ params }: any) {
+
+    const paramsData = await params;
+    const userid = paramsData.userid;
     
-    async function getData(): Promise<ProfileData> {
+    async function getData(userid: any): Promise<ProfileData> {
         try {
             const userDataAndPosts = await axios.get(`http://localhost:4000/api/user/withposts/${userid}`);
             return userDataAndPosts.data
@@ -19,7 +25,7 @@ export default async function otherProfile({params}: {params: Promise<{userid: s
         }
     }
 
-const data = await getData();
+const data = await getData(userid);
 const posts = data.authoredPosts;
 const user = {
     username: data.username,

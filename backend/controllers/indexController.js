@@ -58,11 +58,46 @@ async function postComment(req, res) {
    const content = req.body.content
    try {
       await prisma.postComment(postID, userID, content)
-      return res.json("Success.")
+      return res.json("Successfully posted comment.")
    } catch(err) {
       console.log(err);
       return err
    }
 }
 
-module.exports = { getPosts, newPost, likePost, getLikes, getComments, postComment }
+async function putBio(req, res) {
+   const userID = Number(req.params.userID);
+   const content = req.body.content;
+   try {
+      await prisma.putBio(userID, content);
+      return res.json("Successfully updated bio.")
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
+async function getUser(req, res) {
+   console.log("req params ID: ", req.params.userID)
+   const userID = Number(req.params.userID);
+   try {
+      const user = await prisma.getUser(userID);
+      return res.json(user)
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
+async function getUserWithPosts(req, res) {
+   const userID = Number(req.params.userID);
+   try {
+      const data = await prisma.getUserWithPosts(userID);
+      return res.json(data)
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
+module.exports = { getPosts, newPost, likePost, getLikes, getComments, postComment, putBio, getUser, getUserWithPosts }

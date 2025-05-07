@@ -123,6 +123,55 @@ async function getUserPosts(userID) {
     })
 }
 
+async function putBio(userID, content) {
+    return await prisma.user.update({
+        where: {
+            id: userID
+        },
+        data: {
+            bio: content
+        }
+    })
+}
+
+async function getUser(userID) {
+    console.log(userID);
+    return await prisma.user.findUnique({
+        where: {
+            id: userID
+        },
+        select: {
+            username: true,
+            id: true,
+            bio: true
+        }
+    })
+}
+
+async function getUserWithPosts(userID) {
+    return await prisma.user.findUnique({
+        where: {
+            id: userID
+        },
+        select: {
+            username: true,
+            id: true,
+            bio: true,
+            followedBy: true,
+            following: true,
+            authoredPosts: {
+                include: {
+                    author: {
+                        select: {
+                            username: true
+                        }
+                    }
+                }
+            }
+        }
+    })
+}
+
 module.exports = { 
     findUsers, 
     signup, 
@@ -134,5 +183,8 @@ module.exports = {
     getLikes,
     getComments,
     postComment,
-    getUserPosts
+    getUserPosts,
+    putBio,
+    getUser,
+    getUserWithPosts
 }

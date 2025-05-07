@@ -9,14 +9,17 @@ indexRouter.post("/api/signup", authController.signup);
 indexRouter.get("/api/authcheck", authController.isLoggedIn);
 indexRouter.get("/api/logout", authController.logout);
 indexRouter.get("/api/user", authController.isLoggedIn);
+indexRouter.get("/api/user/:userID", indexController.getUser);
 indexRouter.get("/api/user/posts", authController.getUserPosts)
 indexRouter.get("/api/:postID/likes", indexController.getLikes);
 indexRouter.get("/api/:postID/comments", indexController.getComments);
+indexRouter.get("/api/user/withposts/:userID", indexController.getUserWithPosts);
 
-// index
+// posts, comments, bios
 indexRouter.get("/api/posts", indexController.getPosts);
 indexRouter.post("/api/posts", indexController.newPost);
 indexRouter.post("/api/:postID/likes", indexController.likePost);
 indexRouter.post("/api/post/:postID/comment", indexController.postComment);
+indexRouter.put("/api/put/:userID/bio", indexController.putBio)
 
 module.exports = indexRouter

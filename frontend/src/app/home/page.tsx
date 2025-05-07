@@ -58,7 +58,7 @@ export default async function HomePage() {
                         <div className="text-xl h-[35px]">What's cookin', <b>{user.username}</b>?</div>
                             <NewPostDrawer/>
                         <Separator className="my-4"/>
-                        <PostMap user={user} posts={posts}/>
+                        <PostMap userID={user.id} posts={posts}/>
                     </div>
                 </div>
                 <FriendsPane/>

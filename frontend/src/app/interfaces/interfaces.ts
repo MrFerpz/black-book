@@ -30,3 +30,8 @@ export interface ProfileData {
     following: SimpleUser[];
     authoredPosts: Post[];
 }
+
+export interface ProfileDataWithCurrentUser {
+    currentUserID: number,
+    profileData: ProfileData
+}

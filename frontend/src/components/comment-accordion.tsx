@@ -38,7 +38,6 @@ export default async function CommentAccordion({postID, userID}: Props) {
     }
 
     const comments = await getComments(postID);
-    console.log(comments)
 
 if (comments.length > 0)
     return (

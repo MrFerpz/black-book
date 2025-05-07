@@ -1,8 +1,9 @@
 import axios from "axios";
-import { ProfileData } from "@/app/interfaces/interfaces";
+import { ProfileData, ProfileDataWithCurrentUser } from "@/app/interfaces/interfaces";
 import ProfileCard from "@/components/profile-card";
 import PostMap from "@/components/postmap";
 import FriendsPane from "@/components/friends-pane";
+import { cookies } from "next/headers";
 
 type Props = {
     params: {
@@ -12,29 +13,61 @@ type Props = {
 
 export default async function UserProfile({ params }: any) {
 
+    // extract params for use in finding the profile's data
     const paramsData = await params;
     const userid = paramsData.userid;
     
-    async function getData(userid: any): Promise<ProfileData> {
+    async function getData(userid: any): Promise<ProfileDataWithCurrentUser> {
+        // establish the current user's ID
+        const cookieStore = cookies();
+        const token = (await cookieStore).get("token");
         try {
+            const res = await axios.get("http://localhost:4000/api/user", {
+                headers: {
+                    Cookie: token ? `token=${token.value}` : "",
+                }
+            });
+            // this is the current user
+            const userPayload = res.data;
+            const currentUserID = userPayload.id
+
+            // this is the profile page's user
             const userDataAndPosts = await axios.get(`http://localhost:4000/api/user/withposts/${userid}`);
-            return userDataAndPosts.data
+            return { 
+                currentUserID: currentUserID, 
+                profileData: userDataAndPosts.data
+            }
         } catch (err) {
             console.log(err);
-            return {username: "", id: 0, bio: "", followedBy: [], following: [], authoredPosts: []}
+            return {
+                currentUserID: 0,
+                profileData: {
+                    username: "", 
+                    id: 0, 
+                    bio: "", 
+                    followedBy: [],
+                    following: [], 
+                    authoredPosts: []
+                }
         }
     }
+}
 
 const data = await getData(userid);
-const posts = data.authoredPosts;
+const posts = data.profileData.authoredPosts;
+
+// the profile's key data
 const user = {
-    username: data.username,
-    bio: data.bio,
-    id: data.id,
-    followedBy: data.followedBy,
-    following: data.following,
-    authoredPosts: data.authoredPosts
+    username: data.profileData.username,
+    bio: data.profileData.bio,
+    id: data.profileData.id,
+    followedBy: data.profileData.followedBy,
+    following: data.profileData.following,
+    authoredPosts: data.profileData.authoredPosts
 }
+
+// so we know who the author is on their posts, comments, etc
+const currentUserID = data.currentUserID
 
 // Next up
 //
@@ -44,12 +77,12 @@ const user = {
 // Disable edit bio
 
 return (
-    <div className="grid h-full grid-rows-1 grid-cols-[1fr_auto]">
-        <div>
-            <ProfileCard user={user}/>
-            <PostMap posts={posts} user={user}/>
+        <div className="grid h-full grid-rows-1 grid-cols-[1fr_auto]">
+            <div>
+                <ProfileCard user={user} currentUserID={currentUserID}/>
+                <PostMap posts={posts} userID={currentUserID}/>
+            </div>
+            <FriendsPane/>
         </div>
-        <FriendsPane/>
-    </div>
     )
 }

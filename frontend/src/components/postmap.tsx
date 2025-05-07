@@ -9,10 +9,10 @@ import { Post, SimpleUser, User } from "@/app/interfaces/interfaces"
 
 interface Props {
     posts: Post[],
-    user: SimpleUser
+    userID: number
 }
 
-export default function PostMap({posts, user}: Props) {
+export default function PostMap({posts, userID}: Props) {
     console.log(posts);
     return (
             <div className="w-full flex flex-col items-center">
@@ -42,12 +42,12 @@ export default function PostMap({posts, user}: Props) {
                             </CardHeader>
                             <CardContent>{post.content}</CardContent>
                             <div className="flex w-[4/10] pl-[24px] gap-2">
-                                <LikeButton userID={user.id} postID={post.id}/>
+                                <LikeButton userID={userID} postID={post.id}/>
                                 <MessageSquare className="hover:cursor-pointer hover:opacity-40"/>
                                 <Share className="hover:cursor-pointer hover:opacity-40"/>
                             </div>
                             <LikedByText postID={post.id}/>
-                            <CommentAccordion userID={user.id} postID={post.id}/>
+                            <CommentAccordion userID={userID} postID={post.id}/>
                         </Card>
                         )
                     })

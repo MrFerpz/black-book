@@ -41,8 +41,8 @@ export default async function ProfilePage() {
 return (
     <div className="grid h-full grid-rows-1 grid-cols-[1fr_auto]">
         <div>
-            <ProfileCard user={user}/>
-            <PostMap posts={posts} user={user}/>
+            <ProfileCard user={user} currentUserID={user.id}/>
+            <PostMap posts={posts} userID={user.id}/>
         </div>
         <FriendsPane/>
     </div>

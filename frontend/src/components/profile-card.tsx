@@ -6,10 +6,11 @@ import { User, SimpleUser } from "@/app/interfaces/interfaces"
 import FollowersBar from "./followers-bar"
 
 interface Props {
-    user: User
+    user: User,
+    currentUserID: number
 }
 
-export default async function ProfileCard({user}: Props) {
+export default async function ProfileCard({user, currentUserID}: Props) {
 
     return (
         <Card className="bg-slate-200 rounded-tl-[0] rounded-tr-[0]">
@@ -20,7 +21,7 @@ export default async function ProfileCard({user}: Props) {
                     <div className="my-4 h-[2px] bg-slate-400"/>
                     <div>{user.bio}</div>
                     <div className="my-4 h-[2px] bg-slate-400"/>
-                    <BioButton userID={user.id}/>
+                    <BioButton userID={user.id} currentUserID={currentUserID}/>
                     <div className="flex justify-center items-center h-full">
                         <FollowersBar followedBy={user.followedBy} following={user.following}/>
                     </div>

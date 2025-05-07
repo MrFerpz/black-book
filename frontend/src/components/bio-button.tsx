@@ -6,10 +6,11 @@ import { useRouter } from "next/navigation";
 import { SquarePen, CircleX, MessageSquare } from "lucide-react";
 
 interface Props {
-    userID: number
+    userID: number,
+    currentUserID: number
 }
 
-export default function BioButton({userID}: Props) {
+export default function BioButton({userID, currentUserID}: Props) {
     const [formVisible, setFormVisible] = useState(false);
     const [content, setContent] = useState("")
     const router = useRouter();
@@ -40,6 +41,10 @@ export default function BioButton({userID}: Props) {
         catch (err) {
             console.log(err)
         }
+    }
+
+    if (currentUserID !== userID) {
+        return
     }
 
     if (formVisible) {

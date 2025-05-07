@@ -3,38 +3,12 @@ import ProfileCard from "@/components/profile-card"
 import { cookies } from "next/headers";
 import axios from "axios";
 import PostMap from "@/components/postmap";
+import { User, SimpleUser, Post, ProfileData } from "../interfaces/interfaces";
 
-interface Data {
-    username: string,
-    id: number,
-    bio: string,
-    followedBy: simpleUser[],
-    following: simpleUser[],
-    authoredPosts: Post[]
-}
-
-interface simpleUser {
-    username: string
-}
-
-interface Post {
-    id: number,
-    authorID: number,
-    created_at: string,
-    content: string,
-    author: User
-}
-
-interface User {
-    id: number,
-    username: string,
-    bio: string,
-    authoredPosts: Post[]
-}
 
 export default async function ProfilePage() {
 
-    async function getData(): Promise<Data> {
+    async function getData(): Promise<ProfileData> {
         const cookieStore = cookies();
         const token = (await cookieStore).get("token");
         try {
@@ -67,7 +41,7 @@ export default async function ProfilePage() {
 return (
     <div className="grid h-full grid-rows-1 grid-cols-[1fr_auto]">
         <div>
-            <ProfileCard userID={user.id} username={user.username} bio={user.bio}/>
+            <ProfileCard user={user}/>
             <PostMap posts={posts} user={user}/>
         </div>
         <FriendsPane/>

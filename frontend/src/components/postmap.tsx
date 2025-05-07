@@ -5,25 +5,11 @@ import { ThumbsUp, MessageSquare, Share } from "lucide-react"
 import LikeButton from "./like-button"
 import LikedByText from "@/components/liked-by-text"
 import CommentAccordion from "@/components/comment-accordion"
+import { Post, User } from "@/app/interfaces/interfaces"
 
 interface Props {
     posts: Post[],
     user: User
-}
-
-interface Post {
-    id: number,
-    authorID: number,
-    created_at: string,
-    content: string,
-    author: User
-}
-
-interface User {
-    id: number,
-    username: string,
-    bio: string,
-    authoredPosts: Post[]
 }
 
 export default function PostMap({posts, user}: Props) {

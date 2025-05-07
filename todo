@@ -1,4 +1,17 @@
-- Sidebar
-    - Existing friends, suggested friends
 - Profile page
-- Edit homepage to only show friend's posts
+    - Edit bio to look more elegant
+    - Add following/follower tabs
+    - Friend's profiles
+    - Allow adding profile picture
+
+- Sidebar
+    - Existing friends
+        - Avatar
+        - Online/offline
+    - Separator
+    - Suggested friends
+
+- Homepage
+    - Make it only show friend's posts (can maybe add tab to toggle show all?)
+
+Optional: allow posting pictures

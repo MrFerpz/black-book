@@ -12,6 +12,8 @@ interface Props {
     userID: number
 }
 
+
+
 export default function PostMap({posts, userID}: Props) {
     return (
             <div className="w-full flex flex-col items-center">
@@ -22,11 +24,14 @@ export default function PostMap({posts, userID}: Props) {
                     const time = formattedDate[1];
                     const date = formattedDate[0];
                     const link = "/profile/" + post.author.id;
+                    const avatarLink = "https://xojkgyryuzebqbbahcbh.supabase.co/storage/v1/object/public/avatars/" + post.author.id;
+
                     return (
                         <Card className = "w-9/10 mb-5 mt-5" key = {post.id}>
                             <CardHeader className="flex">
                                 <a href={link}>
-                                    <Avatar>
+                                    <Avatar className="w-[35px] h-[35px] border-solid border-slate-900 border-[2px]">
+                                        <AvatarImage src={avatarLink}></AvatarImage>
                                         <AvatarFallback>{post.author.username[0]}</AvatarFallback>
                                     </Avatar>
                                 </a>

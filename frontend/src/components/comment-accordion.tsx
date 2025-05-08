@@ -2,6 +2,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "./
 import { Separator } from "./ui/separator"
 import axios from "axios"
 import CommentButton from "./comment-button"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 interface Props {
     postID: Number,
@@ -49,12 +50,23 @@ if (comments.length > 0)
                 <Separator/>
                     {comments.map((comment: Comment) => {
                         let link = "/profile/" + comment.author.id.toString();
+                        let avatarLink = "https://xojkgyryuzebqbbahcbh.supabase.co/storage/v1/object/public/avatars/" + comment.author.id;
                         return (
                             <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-3" key={comment.id.toString()}>
-                                <a href={link}>
-                                    <div className="font-bold">{comment.author.username}</div>
-                                </a>
-                                <div>{comment.content}</div>
+                                <div className="flex gap-8 items-center">
+                                    <div className="flex flex-col w-[75px] justify-center items-center gap-2">
+                                        <a href={link}>
+                                            <Avatar className="w-[35px] h-[35px] border-solid border-slate-900 border-[2px]">
+                                                <AvatarImage src={avatarLink}/>
+                                                <AvatarFallback>{comment.author.username[0]}</AvatarFallback>
+                                            </Avatar>
+                                        </a>
+                                        <a href={link}>
+                                            <div className="font-bold">{comment.author.username}</div>
+                                        </a>
+                                    </div>
+                                    <div>{comment.content}</div>
+                                </div>
                             </AccordionContent>
                             )
                         })

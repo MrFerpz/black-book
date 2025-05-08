@@ -4,6 +4,7 @@ import ProfileCard from "@/components/profile-card";
 import PostMap from "@/components/postmap";
 import FriendsPane from "@/components/following-pane";
 import { cookies } from "next/headers";
+import FollowingPane from "@/components/following-pane";
 
 type Props = {
     params: {
@@ -75,7 +76,7 @@ return (
                 <ProfileCard user={user} currentUserID={currentUserID}/>
                 <PostMap posts={posts} userID={currentUserID}/>
             </div>
-            <FriendsPane/>
+            <FollowingPane currentUserID={currentUserID}/>
         </div>
     )
 }

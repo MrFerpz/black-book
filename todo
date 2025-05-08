@@ -5,10 +5,11 @@
 
 - Profile page by ID (other users)
     - Friend's profiles - DONE
+    - Add follow/unfollow button
 
 - Sidebar
     - Existing friends
-        - Avatar
+        - Avatar 
         - Online/offline
     - Suggested friends
     - Add links

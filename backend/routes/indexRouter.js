@@ -30,6 +30,7 @@ indexRouter.put("/api/unfollow/:userID/from/:currentUserID", indexController.unf
 indexRouter.put("/api/follow/:userID/from/:currentUserID", indexController.follow)
 
 // uploads
-indexRouter.post("/api/avatar/:userID", upload.single('avatar'), uploadController.uploadAvatar)
+indexRouter.post("/api/avatar/:userID", upload.single('avatar'), uploadController.uploadAvatar);
+indexRouter.get("/api/profilepic/:userID", uploadController.getURL)
 
 module.exports = indexRouter

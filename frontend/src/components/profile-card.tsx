@@ -6,6 +6,7 @@ import { User, SimpleUser } from "@/app/interfaces/interfaces"
 import FollowersBar from "./followers-bar"
 import FollowButtonWrapper from "./follow-button-wrapper"
 import EditProfilePicture from "./edit-profile-picture"
+import { getProfilePicURL } from "@/app/axios-interface/get-profile-pic"
 
 interface Props {
     user: User,
@@ -13,11 +14,20 @@ interface Props {
 }
 
 export default async function ProfileCard({user, currentUserID}: Props) {
+    const timestamp = Date.now();
+    let ppUrl = await getProfilePicURL(currentUserID);
+    const imageUrl = ppUrl ? `${ppUrl}?t=${timestamp}` : "../../public/defaultPP.jpg";
+
+    
 
     return (
         <Card className="bg-slate-200 rounded-tl-[0] rounded-tr-[0]">
             <div className="flex">
-                <Image priority={true} style={{width: "256px", height: "256px"}} className="rounded-[50%] ml-5" alt="Profile Picture" src={DefaultPP}/>
+                <img
+                    className="rounded-[50%] ml-10 w-[300px] h-[300px] object-cover" 
+                    alt="Profile Picture" 
+                    src={imageUrl}
+                />
                 <EditProfilePicture currentUserID={currentUserID}/>
                 <div className="flex w-full flex-col justify-center p-6 ml-10">
                     <div className="text-2xl font-extrabold">{user.username}</div>

@@ -10,7 +10,6 @@ type Props = {
 }
 
 export default async function UserProfile({ params }: any) {
-
     // extract params for use in finding the profile's data
     const paramsData = await params;
     const userid = paramsData.userid;

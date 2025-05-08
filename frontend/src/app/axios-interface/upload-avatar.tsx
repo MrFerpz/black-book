@@ -9,4 +9,5 @@ export default async function uploadAvatar(e: any, userID: number) {
     } catch(err) {
         console.log(err)
     }
+    return
 }

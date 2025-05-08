@@ -27,7 +27,7 @@ export default function FollowersBar({followedBy, following}: Props) {
                     <DialogHeader>
                     <DialogTitle>Followers</DialogTitle>
                     <DialogDescription>
-                        See followers.
+                        See followers
                     </DialogDescription>
                     {followedBy.map(followingUser => {
                         let link = "/profile/" + followingUser.id;
@@ -59,7 +59,7 @@ export default function FollowersBar({followedBy, following}: Props) {
                     <DialogHeader>
                         <DialogTitle>Following</DialogTitle>
                         <DialogDescription>
-                            See following.
+                            See following
                         </DialogDescription>
                     </DialogHeader>
                     {following.map(followedUser => {

@@ -3,7 +3,6 @@ import ProfileCard from "@/components/profile-card"
 import PostMap from "@/components/postmap";
 import { getUserAndPosts } from "../axios-interface/get-user-and-posts";
 
-
 export default async function ProfilePage() {
 
     const data = await getUserAndPosts();

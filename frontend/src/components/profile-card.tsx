@@ -5,6 +5,7 @@ import BioButton from "./bio-button"
 import { User, SimpleUser } from "@/app/interfaces/interfaces"
 import FollowersBar from "./followers-bar"
 import FollowButtonWrapper from "./follow-button-wrapper"
+import EditProfilePicture from "./edit-profile-picture"
 
 interface Props {
     user: User,
@@ -17,6 +18,7 @@ export default async function ProfileCard({user, currentUserID}: Props) {
         <Card className="bg-slate-200 rounded-tl-[0] rounded-tr-[0]">
             <div className="flex">
                 <Image priority={true} style={{width: "256px", height: "256px"}} className="rounded-[50%] ml-5" alt="Profile Picture" src={DefaultPP}/>
+                <EditProfilePicture currentUserID={currentUserID}/>
                 <div className="flex w-full flex-col justify-center p-6 ml-10">
                     <div className="text-2xl font-extrabold">{user.username}</div>
                     <div className="my-4 h-[2px] bg-slate-400"/>

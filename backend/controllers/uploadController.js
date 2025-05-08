@@ -1,7 +1,9 @@
-const multer = require('multer');
-const upload = multer({dest: 'uploads/'});
+function uploadAvatar(req, res) {
+    // supabase? 
+    console.log("called");
+    console.log(req.file);
+}
 
-export function uploadAvatar(req, res) {
-    upload.single('avatar');
-    return res.json("Successfully uploaded avatar");
+module.exports = {
+    uploadAvatar
 }

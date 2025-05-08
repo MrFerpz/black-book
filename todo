@@ -1,18 +1,8 @@
-- Profile page
-    - Edit bio to look more elegant - DONE
-    - Add following/follower tabs - DONE
-    - Allow adding profile picture
+-- Primary
+- Allow adding profile picture
+- Make homepage only show friend's posts (can maybe add tab to toggle show all?)
 
-- Profile page by ID (other users)
-    - Friend's profiles - DONE
-    - Add follow/unfollow button
-
-- Sidebar
-    - Existing friends
-        - Avatar 
-        - Online/offline
-    - Suggested friends
-    - Add links
-
-- Homepage
-    - Make it only show friend's posts (can maybe add tab to toggle show all?)
+-- Secondary
+- Clean up client vs server & refreshing logic on followers tab
+- Add loading states
+- Allow adding picture posts?

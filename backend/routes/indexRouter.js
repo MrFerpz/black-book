@@ -3,6 +3,8 @@ const indexRouter = express();
 const indexController = require('../controllers/indexController');
 const authController = require('../controllers/authController')
 const uploadController = require('../controllers/uploadController')
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
 
 // auth
 indexRouter.post("/api/login", authController.login);
@@ -28,6 +30,6 @@ indexRouter.put("/api/unfollow/:userID/from/:currentUserID", indexController.unf
 indexRouter.put("/api/follow/:userID/from/:currentUserID", indexController.follow)
 
 // uploads
-indexRouter.post("/api/avatar/:userID", uploadController.uploadAvatar)
+indexRouter.post("/api/avatar/:userID", upload.single('avatar'), uploadController.uploadAvatar)
 
 module.exports = indexRouter

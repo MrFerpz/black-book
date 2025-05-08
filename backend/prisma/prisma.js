@@ -160,8 +160,18 @@ async function getUserWithPosts(userID) {
             username: true,
             id: true,
             bio: true,
-            followedBy: true,
-            following: true,
+            followedBy: {
+                select: {
+                    id: true,
+                    username: true
+                }
+            },
+            following: { 
+                select: {
+                    id: true,
+                    username: true
+                }
+            },
             authoredPosts: {
                 include: {
                     author: {

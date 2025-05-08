@@ -1,35 +1,12 @@
-import { Separator } from "./ui/separator"
 import axios from "axios"
 import { SimpleUser } from "@/app/interfaces/interfaces";
-import { Avatar } from "./ui/avatar";
-import { AvatarFallback } from "@radix-ui/react-avatar";
+import { getFollowing } from "@/app/data-fetching/following";
 
 type Props = {
     currentUserID: number
 }
 
-interface UserList {
-    following: SimpleUser[],
-    notFollowing: SimpleUser[]
-}
-
 export default async function FollowingPane({currentUserID}: Props) {
-
-    async function getFollowing(currentUser: number): Promise<UserList> {
-        try {
-        const followingData = await axios.get(`http://localhost:4000/api/${currentUser}/following`, {withCredentials: true});
-        const following = followingData.data;
-        const notFollowingData = await axios.get(`http://localhost:4000/api/${currentUser}/notfollowing`, {withCredentials: true});
-        const notFollowing = notFollowingData.data;
-        const users: UserList = {
-            following: following.following,
-            notFollowing: notFollowing
-        }
-        return users;
-        } catch(err) {
-            return {following: [], notFollowing: []}
-        }
-    }
 
     const userList = await getFollowing(currentUserID);
     const following = userList.following;

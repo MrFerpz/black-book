@@ -1,33 +1,12 @@
 import FollowingPane from "@/components/following-pane";
 import ProfileCard from "@/components/profile-card"
-import { cookies } from "next/headers";
-import axios from "axios";
 import PostMap from "@/components/postmap";
-import { User, SimpleUser, Post, ProfileData } from "../interfaces/interfaces";
+import { getUserAndPosts } from "../data-fetching/get-user-and-posts";
 
 
 export default async function ProfilePage() {
 
-    async function getData(): Promise<ProfileData> {
-        const cookieStore = cookies();
-        const token = (await cookieStore).get("token");
-        try {
-            const res = await axios.get("http://localhost:4000/api/user", {
-                headers: {
-                    Cookie: token ? `token=${token.value}` : "",
-                }
-            });
-            const userPayload = res.data;
-            const userID = userPayload.id
-            const userDataAndPosts = await axios.get(`http://localhost:4000/api/user/withposts/${userID}`);
-            return userDataAndPosts.data
-        } catch (err) {
-            console.log(err);
-            return {username: "", id: 0, bio: "", followedBy: [], following: [], authoredPosts: []}
-        }
-    }
-
-    const data = await getData();
+    const data = await getUserAndPosts();
     const posts = data.authoredPosts;
     const user = {
         username: data.username,

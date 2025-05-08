@@ -1,16 +1,10 @@
-import axios from "axios"
+import { getLikes } from "@/app/data-fetching/get-likes";
 
 interface Props {
     postID: Number
 }
 
 export default async function LikedByText({postID}: Props) {
-
-    async function getLikes(postID: Number) {
-        const likesData = await axios.get(`http://localhost:4000/api/${postID}/likes`, 
-            {withCredentials: true});
-        return likesData.data
-    }
 
     const likers: any = await getLikes(postID);
     const style = "bg-slate-100 rounded-sm p-1 px-6"

@@ -1,6 +1,6 @@
 import axios from "axios"
 import { SimpleUser } from "@/app/interfaces/interfaces";
-import { getFollowing } from "@/app/data-fetching/following";
+import { getFollowing } from "@/app/axios-interface/get-following";
 
 type Props = {
     currentUserID: number

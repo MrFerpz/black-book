@@ -1,7 +1,7 @@
 import FollowingPane from "@/components/following-pane";
 import ProfileCard from "@/components/profile-card"
 import PostMap from "@/components/postmap";
-import { getUserAndPosts } from "../data-fetching/get-user-and-posts";
+import { getUserAndPosts } from "../axios-interface/get-user-and-posts";
 
 
 export default async function ProfilePage() {

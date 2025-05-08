@@ -122,6 +122,30 @@ async function getNotFollowing(req, res) {
    }
 }
 
+async function follow(req, res) {
+   const userID = Number(req.params.userID);
+   const currentUserID = Number(req.params.currentUserID);
+   try {
+      await prisma.follow(userID, currentUserID);
+      return res.json("Followed.")
+   } catch (err) {
+      console.log(err);
+      return err
+   }
+}
+
+async function unfollow(req, res) {
+   const userID = Number(req.params.userID);
+   const currentUserID = Number(req.params.currentUserID);
+   try {
+      await prisma.unfollow(userID, currentUserID);
+      return res.json("Unfollowed.")
+   } catch (err) {
+      console.log(err);
+      return err
+   }
+}
+
 module.exports = { 
    getPosts, 
    newPost, 
@@ -133,5 +157,7 @@ module.exports = {
    getUser, 
    getUserWithPosts,
    getFollowing,
-   getNotFollowing
+   getNotFollowing,
+   follow,
+   unfollow
 }

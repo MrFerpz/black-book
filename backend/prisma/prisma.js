@@ -234,6 +234,36 @@ async function getNotFollowing(userID) {
     });
 }
 
+async function follow(userID, currentUserID) {
+    return await prisma.user.update({
+        where: {
+            id: currentUserID
+        },
+        data: {
+            following: {
+                connect: {
+                    id: userID
+                }
+            }
+        }
+    })
+}
+
+async function unfollow(userID, currentUserID) {
+    return await prisma.user.update({
+        where: {
+            id: currentUserID
+        },
+        data: {
+            following: {
+                disconnect: {
+                    id: userID
+                }
+            }
+        }
+    })
+}
+
 module.exports = { 
     findUsers, 
     signup, 
@@ -250,5 +280,7 @@ module.exports = {
     getUser,
     getUserWithPosts,
     getFollowing,
-    getNotFollowing
+    getNotFollowing,
+    follow,
+    unfollow
 }

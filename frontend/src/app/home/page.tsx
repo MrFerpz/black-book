@@ -4,8 +4,8 @@ import { Separator } from "@/components/ui/separator"
 import NewPostDrawer from "../../components/new-post-drawer"
 import FollowingPane from "@/components/following-pane"
 import PostMap from "@/components/postmap"
-import { getCurrentUser } from "../data-fetching/get-current-user"
-import { getPosts } from "../data-fetching/get-posts"
+import { getCurrentUser } from "../axios-interface/get-current-user"
+import { getPosts } from "../axios-interface/get-posts"
 
 export default async function HomePage() {
     const posts = await getPosts();

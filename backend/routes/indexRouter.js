@@ -23,5 +23,7 @@ indexRouter.post("/api/post/:postID/comment", indexController.postComment);
 indexRouter.put("/api/put/:userID/bio", indexController.putBio);
 indexRouter.get("/api/:userID/following", indexController.getFollowing);
 indexRouter.get("/api/:userID/notfollowing", indexController.getNotFollowing);
+indexRouter.put("/api/unfollow/:userID/from/:currentUserID", indexController.unfollow)
+indexRouter.put("/api/follow/:userID/from/:currentUserID", indexController.follow)
 
 module.exports = indexRouter

@@ -4,7 +4,7 @@ import DefaultPP from "../../public/defaultPP.jpg"
 import BioButton from "./bio-button"
 import { User, SimpleUser } from "@/app/interfaces/interfaces"
 import FollowersBar from "./followers-bar"
-import FollowButton from "./follow-button"
+import FollowButtonWrapper from "./follow-button-wrapper"
 
 interface Props {
     user: User,
@@ -27,9 +27,9 @@ export default async function ProfileCard({user, currentUserID}: Props) {
                     )}
                     <div className="my-4 h-[2px] bg-slate-400"/>
                     <BioButton userID={user.id} currentUserID={currentUserID}/>
-                    <div className="flex mt-7 justify-center items-center h-full">
+                    <div className="flex mt-7 gap-4 justify-center items-center h-full">
                         <FollowersBar followedBy={user.followedBy} following={user.following}/>
-                        <FollowButton user={user} currentUserID={currentUserID}/>
+                        <FollowButtonWrapper user={user} currentUserID={currentUserID}/>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import { getLikes } from "@/app/data-fetching/get-likes";
+import { getLikes } from "@/app/axios-interface/get-likes";
 
 interface Props {
     postID: Number

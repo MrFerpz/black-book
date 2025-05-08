@@ -1,7 +1,7 @@
 import ProfileCard from "@/components/profile-card";
 import PostMap from "@/components/postmap";
 import FollowingPane from "@/components/following-pane";
-import { getProfileWithUser } from "@/app/data-fetching/get-profile-with-user";
+import { getProfileWithUser } from "@/app/axios-interface/get-profile-with-user";
 
 type Props = {
     params: {

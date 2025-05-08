@@ -2,6 +2,7 @@ const express = require('express');
 const indexRouter = express();
 const indexController = require('../controllers/indexController');
 const authController = require('../controllers/authController')
+const uploadController = require('../controllers/uploadController')
 
 // auth
 indexRouter.post("/api/login", authController.login);
@@ -25,5 +26,8 @@ indexRouter.get("/api/:userID/following", indexController.getFollowing);
 indexRouter.get("/api/:userID/notfollowing", indexController.getNotFollowing);
 indexRouter.put("/api/unfollow/:userID/from/:currentUserID", indexController.unfollow)
 indexRouter.put("/api/follow/:userID/from/:currentUserID", indexController.follow)
+
+// uploads
+indexRouter.post("/api/avatar/:userID", uploadController.uploadAvatar)
 
 module.exports = indexRouter

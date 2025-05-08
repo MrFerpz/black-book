@@ -4,7 +4,7 @@ const indexController = require('../controllers/indexController');
 const authController = require('../controllers/authController')
 const uploadController = require('../controllers/uploadController')
 const multer = require('multer');
-const upload = multer({dest: 'uploads/'});
+const upload = multer();
 
 // auth
 indexRouter.post("/api/login", authController.login);

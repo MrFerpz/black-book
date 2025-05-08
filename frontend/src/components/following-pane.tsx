@@ -30,8 +30,7 @@ export default async function FollowingPane({currentUserID}: Props) {
                     </a>
                     );
                 })}
-            <div className="w-full h-[1px] bg-slate-400"></div>
-            <div className="font-bold text-center">Other users</div>
+            <div className="font-bold text-center mt-2">Other users</div>
             <div className="w-full h-[1px] bg-slate-300"></div>
             {notFollowing.map((user: SimpleUser) => {
                     let path = user.id.toString();

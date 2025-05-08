@@ -23,7 +23,7 @@ export default async function ProfileCard({user, currentUserID}: Props) {
                     <div className="text-2xl font-extrabold">{user.username}</div>
                     <div className="my-4 h-[2px] bg-slate-400"/>
                     {user.bio ? (
-                        <div>{user.bio}</div>
+                        <div className="bg-white p-6 rounded-md">{user.bio}</div>
                     ) : (
                         <div>{user.username} does not have a bio yet.</div>
                     )}

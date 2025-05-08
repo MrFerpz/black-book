@@ -31,8 +31,12 @@ export default function EditProfilePicture({currentUserID}: Props) {
                 <DialogTitle>Edit your profile picture</DialogTitle>
                 </DialogHeader>
                 <form onSubmit={handleSubmit} encType="multipart/form-data">
-                    <input type="file" name="avatar"/>
-                    <Button className="hover:cursor-pointer" type="submit">Submit</Button>
+                    <div className="flex gap-5">
+                        <div className="hover:cursor-pointer rounded-md bg-slate-100">
+                        <input accept="image/png, image/jpeg" type="file" name="avatar"/>
+                        </div>
+                        <Button className="hover:cursor-pointer" type="submit">Submit</Button>
+                    </div>
                 </form>
             </DialogContent>
         </Dialog>

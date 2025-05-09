@@ -264,6 +264,36 @@ async function unfollow(userID, currentUserID) {
     })
 }
 
+async function unlikePost(postID, userID) {
+    return await prisma.post.update({
+        where: {
+            id: postID
+        },
+        data: {
+            likedBy: {
+                disconnect: {
+                    id: userID
+                }
+            }
+        }
+    })
+}
+
+async function checkLiked(postID, userID) {
+    const result = await prisma.post.findFirst({
+        where: {
+            id: postID,
+            likedBy: {
+                some: {
+                    id: userID
+                }
+            }
+        }
+    });
+    if (result) return true;
+    else return false
+}
+
 module.exports = { 
     findUsers, 
     signup, 
@@ -282,5 +312,7 @@ module.exports = {
     getFollowing,
     getNotFollowing,
     follow,
-    unfollow
+    unfollow,
+    unlikePost,
+    checkLiked
 }

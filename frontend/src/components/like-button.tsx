@@ -18,7 +18,7 @@ export default function LikeButton({postID, userID}: Props) {
 
     async function checkIfLiked(postID: number, userID: number) {
         try {
-            const response = await axios.get(`http://localhost:4000/${postID}/${userID}/liked`);
+            const response = await axios.get(`http://localhost:4000/api/${postID}/${userID}/liked`);
             return response.data
         } catch(err) {
             console.log(err);
@@ -33,7 +33,7 @@ export default function LikeButton({postID, userID}: Props) {
             setLiked(isLiked);
             setIsLoading(false);
         };
-        fetchLikeStatus()}, [postID, userID]);
+        fetchLikeStatus()}, []);
 
     async function likePost(postID: number, userID: number) {
         try {

@@ -146,6 +146,30 @@ async function unfollow(req, res) {
    }
 }
 
+async function unlikePost(req, res) {
+   const postID = Number(req.params.postID);
+   const userID = Number(req.body.userID);
+   try {
+      await prisma.unlikePost(postID, userID);
+      return res.json("Unliked post.")
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
+async function checkLiked(req, res) {
+   const postID = Number(req.params.postID);
+   const userID = Number(req.params.userID);
+   try {
+      const result = await prisma.checkLiked(postID, userID);
+      return res.json(result)
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
 module.exports = { 
    getPosts, 
    newPost, 
@@ -159,5 +183,7 @@ module.exports = {
    getFollowing,
    getNotFollowing,
    follow,
-   unfollow
+   unfollow,
+   unlikePost,
+   checkLiked
 }

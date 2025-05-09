@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Textarea } from "./ui/textarea";
 import { useRouter } from "next/navigation";
-import { SendHorizontal, CircleX, MessageSquare } from "lucide-react";
+import { SendHorizontal, CircleX, MessageSquare, Loader } from "lucide-react";
 
 interface Props {
     postID: Number,
@@ -12,7 +12,8 @@ interface Props {
 
 export default function CommentButton({postID, userID}: Props) {
     const [formVisible, setFormVisible] = useState(false);
-    const [content, setContent] = useState("")
+    const [isLoading, setIsLoading] = useState(false);
+    const [content, setContent] = useState("");
     const router = useRouter();
 
     function toggleVisibility() {
@@ -29,16 +30,21 @@ export default function CommentButton({postID, userID}: Props) {
 
     async function submitComment(e: any) {
         e.preventDefault();
+        setIsLoading(true)
         try {
             await axios.post(`http://localhost:4000/api/post/${postID}/comment`, {
             content: content,
             userID: userID
         }, { withCredentials: true });
-            setContent("")
+            setContent("");
             router.refresh();
+            setTimeout(() => {
+                setIsLoading(false)}, 1800
+            )
         }
         catch (err) {
             console.log(err)
+            setIsLoading(false);
         }
     }
 
@@ -46,6 +52,11 @@ export default function CommentButton({postID, userID}: Props) {
         return (
             <>
                 <div className="bg-slate-100 rounded-lg p-1 m-1">
+                    {isLoading ? (
+                        <div className="flex justify-content">
+                            <Loader className="animate-spin"/>
+                        </div>
+                    ) : (
                     <form onSubmit={submitComment} className="flex">
                         <Textarea value={content} placeholder="Add your comment here"autoFocus className="bg-white-900" onChange={contentChange}/>
                         <div className="flex flex-col gap-2 p-1 m-1">
@@ -53,6 +64,7 @@ export default function CommentButton({postID, userID}: Props) {
                             <CircleX className="hover:opacity-40 hover:cursor-pointer" onClick={toggleVisibility}>Close</CircleX>
                         </div>
                     </form>
+                    )}
                 </div>
             </>
         )

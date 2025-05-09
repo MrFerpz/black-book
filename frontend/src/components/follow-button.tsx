@@ -4,6 +4,7 @@ import { useState } from "react"
 import { follow, unfollow } from "@/app/axios-interface/follow"
 import { Button, buttonVariants } from "./ui/button"
 import { useRouter } from "next/navigation"
+import { Loader } from "lucide-react"
 
 interface Props {
     user: User,
@@ -13,16 +14,21 @@ interface Props {
 
 export function FollowButton({user, currentUserID, isFollowing}: Props) {
     const [following, setFollowing] = useState(isFollowing);
+    const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
 
     async function handleClick() {
         if (following) {
             setFollowing(false);
+            setIsLoading(true);
             await unfollow(currentUserID, user.id);
+            setIsLoading(false);
             router.refresh();
         } else {
             setFollowing(true);
+            setIsLoading(true);
             await follow(currentUserID, user.id);
+            setIsLoading(false)
             router.refresh();
         }
     }
@@ -33,11 +39,11 @@ export function FollowButton({user, currentUserID, isFollowing}: Props) {
 
     if (following) {
         return (
-            <Button className="hover:cursor-pointer" variant="destructive" onClick={handleClick}>Unfollow</Button>
+            <Button className="hover:cursor-pointer" variant="destructive" onClick={handleClick}>{isLoading ? (<Loader className="animate-spin"/>) : "Unfollow"}</Button>
         )
     }
 
     return (
-        <Button className="hover:cursor-pointer" onClick={handleClick}>Follow</Button>
+        <Button className="hover:cursor-pointer" onClick={handleClick}>{isLoading ? (<Loader className="animate-spin"/>) : "Follow"}</Button>
     )
 }

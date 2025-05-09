@@ -51,6 +51,7 @@ export default function NewPostDrawer({userID}: Props) {
             </div>
         )
     }
+
     return (
         <Drawer>
             <DrawerTrigger className="hover:cursor-pointer bg-slate-100 text-secondary-foreground shadow-xs hover:bg-blue-200 mt-3 rounded-md px-6 py-2">New Post</DrawerTrigger>

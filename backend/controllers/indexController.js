@@ -6,6 +6,20 @@ async function getPosts(req, res) {
    return res.json(posts)
 }
 
+async function newPostReturningID(req, res, next) {
+   const content = req.body.content;
+   const userID = Number(req.params.userID);
+   try {
+      const post = await prisma.newPost(userID, content);
+      // save the postID
+      req.postID = post.id
+   } catch(err) {
+      console.log(err);
+      res.json(err)
+   }
+   next();
+}
+
 async function newPost(req, res) {
    const content = req.body.content;
    const userID = Number(req.body.userID);
@@ -197,5 +211,6 @@ module.exports = {
    follow,
    unfollow,
    unlikePost,
-   checkLiked
+   checkLiked,
+   newPostReturningID
 }

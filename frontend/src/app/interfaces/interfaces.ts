@@ -18,6 +18,7 @@ export interface Post {
     authorId: number;
     created_at: string;
     content: string;
+    url: string;
     author: SimpleUser; // just need username and id
 }
   

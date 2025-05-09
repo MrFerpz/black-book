@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DIRECT_URL")
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
@@ -29,6 +29,7 @@ model Post {
   authorId   Int
   likedBy    User[]    @relation("Likes")
   comments   Comment[]
+  url        String?   @default("")
 }
 
 model Comment {

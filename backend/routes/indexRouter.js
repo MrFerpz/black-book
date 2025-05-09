@@ -38,6 +38,13 @@ indexRouter.put("/api/follow/:userID/from/:currentUserID", indexController.follo
 
 // uploads
 indexRouter.post("/api/avatar/:userID", upload.single('avatar'), uploadController.uploadAvatar);
-indexRouter.get("/api/profilepic/:userID", uploadController.getURL)
+indexRouter.get("/api/profilepic/:userID", uploadController.getAvatarURL);
+
+// photo posts
+indexRouter.post("/api/posts/photo/:userID", 
+    upload.single('photopost'), 
+    indexController.newPostReturningID, 
+    uploadController.uploadPhotoPost,
+    uploadController.linkURLToPrisma)
 
 module.exports = indexRouter

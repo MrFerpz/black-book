@@ -75,12 +75,13 @@ async function getPostsByFollowing(userID) {
 }
 
 async function newPost(userID, content) {
-    return await prisma.post.create({
+    const post = await prisma.post.create({
         data: {
             authorId: userID,
             content: content
         }
     })
+    return post
 }
 
 async function likePost(postID, userID) {
@@ -324,6 +325,17 @@ async function checkLiked(postID, userID) {
     else return false
 }
 
+async function addURLtoDatabase(postID, url) {
+    await prisma.post.upsert({
+        where: {
+            id: postID
+        },
+        data: {
+            url: url
+        }
+    })
+}
+
 module.exports = { 
     findUsers, 
     signup, 
@@ -345,5 +357,6 @@ module.exports = {
     unfollow,
     unlikePost,
     checkLiked,
-    getPostsByFollowing
+    getPostsByFollowing,
+    addURLtoDatabase
 }

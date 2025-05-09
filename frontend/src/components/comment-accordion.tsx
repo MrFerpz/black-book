@@ -54,7 +54,7 @@ if (comments.length > 0)
                         return (
                             <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-3" key={comment.id.toString()}>
                                 <div className="flex gap-8 items-center">
-                                    <div className="flex flex-col w-[75px] justify-center items-center gap-2">
+                                    <div className="flex flex-col w-[75px] ml-3 justify-center items-center gap-2">
                                         <a href={link}>
                                             <Avatar className="w-[35px] h-[35px] border-solid border-slate-900 border-[2px]">
                                                 <AvatarImage src={avatarLink}/>

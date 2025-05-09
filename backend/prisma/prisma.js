@@ -40,7 +40,8 @@ async function getAllPosts() {
                     id: true
                 }
             }
-        }
+        },
+        orderBy: { created_at: "desc"}
     })
 }
 
@@ -153,7 +154,8 @@ async function getUserPosts(userID) {
                     username: true
                 }
             }
-        }
+        },
+        orderBy: { created_at: "desc"}
     })
 }
 
@@ -212,7 +214,8 @@ async function getUserWithPosts(userID) {
                     }
                 }
             }
-        }
+        },
+        orderBy: { created_at: "desc"}
     })
 }
 

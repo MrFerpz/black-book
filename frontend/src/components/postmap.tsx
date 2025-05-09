@@ -36,7 +36,6 @@ export default function PostMap({posts, userID}: Props) {
                                         <AvatarFallback>{post.author.username[0]}</AvatarFallback>
                                     </Avatar>
                                 </a>
-                                {post.url ? (<img className="w-full h-auto object-fit" src={post.url}/>) : null}
                                 <a href={link}>
                                     <CardTitle className="m-2">
                                         {post.author.username}
@@ -47,6 +46,7 @@ export default function PostMap({posts, userID}: Props) {
                                 </div>
                             </CardHeader>
                             <CardContent>{post.content}</CardContent>
+                            {post.url ? (<img className="w-full h-auto object-fit" src={post.url}/>) : null}
                             <div className="flex w-[4/10] pl-[24px] gap-2">
                                 <LikeButton userID={userID} postID={post.id}/>
                                 <MessageSquare className="hover:cursor-pointer hover:opacity-40"/>

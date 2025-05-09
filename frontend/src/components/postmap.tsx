@@ -1,19 +1,15 @@
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ThumbsUp, MessageSquare, Share } from "lucide-react"
 import LikeButton from "./like-button"
 import LikedByText from "@/components/liked-by-text"
 import CommentAccordion from "@/components/comment-accordion"
 import { Post, SimpleUser, User } from "@/app/interfaces/interfaces"
-import { timeStamp } from "console"
 
 interface Props {
     posts: Post[],
     userID: number
 }
-
-
 
 export default function PostMap({posts, userID}: Props) {
     return (
@@ -48,10 +44,8 @@ export default function PostMap({posts, userID}: Props) {
                             <CardContent>{post.content}</CardContent>
                             <div className="flex w-[4/10] pl-[24px] gap-2">
                                 <LikeButton userID={userID} postID={post.id}/>
-                                <MessageSquare className="hover:cursor-pointer hover:opacity-40"/>
-                                <Share className="hover:cursor-pointer hover:opacity-40"/>
+                                <LikedByText postID={post.id}/>
                             </div>
-                            <LikedByText postID={post.id}/>
                             <CommentAccordion userID={userID} postID={post.id}/>
                         </Card>
                         )

@@ -7,7 +7,7 @@ interface Props {
 export default async function LikedByText({postID}: Props) {
 
     const likers: any = await getLikes(postID);
-    const style = "bg-slate-100 rounded-sm p-1 px-6"
+    const style = "rounded-sm p-1 px-2"
 
     if (likers.length === 0) {
         return (

@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 interface Props {
     postID: Number,
-    userID: Number
+    userID: Number,
 }
 
 interface Comment {

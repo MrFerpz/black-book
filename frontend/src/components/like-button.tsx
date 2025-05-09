@@ -1,6 +1,6 @@
 "use client"
 import axios from "axios"
-import { ThumbsUp } from "lucide-react"
+import { Heart } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 interface Props {
@@ -19,9 +19,11 @@ export default function LikeButton({postID, userID}: Props) {
     }
 
     return (
-        <ThumbsUp
-            className="hover:cursor-pointer hover:opacity-40"
-            onClick={() => {likePost(postID, userID)}}>
-        </ThumbsUp>
+        <div className="flex justify-center items-center">
+            <Heart
+                className="hover:cursor-pointer hover:opacity-40"
+                onClick={() => {likePost(postID, userID)}}>
+            </Heart>
+        </div>
     )
 }

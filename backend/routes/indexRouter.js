@@ -16,8 +16,6 @@ indexRouter.get("/api/user/:userID", indexController.getUser);
 indexRouter.get("/api/user/posts", authController.getUserPosts)
 indexRouter.get("/api/user/withposts/:userID", indexController.getUserWithPosts);
 
-
-
 // posts / comments
 indexRouter.get("/api/posts", indexController.getPosts);
 indexRouter.post("/api/posts", indexController.newPost);

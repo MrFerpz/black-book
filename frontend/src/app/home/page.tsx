@@ -11,7 +11,6 @@ import { getHomePagePosts } from '../axios-interface/get-homepage-posts'
 export default async function HomePage() {
     const user = await getCurrentUser();
     const posts = await getHomePagePosts(user.id);
-    console.log(posts);
 
     if (posts) {
         return (
@@ -22,7 +21,7 @@ export default async function HomePage() {
                             <Image style={{height: "auto"}} width={300} priority={true} alt="Black Book Logo" src={Logo}></Image>
                             <Separator className="w-[90%] my-4"/>
                             <div className="text-xl h-[35px]">What's cookin', <b>{user.username}</b>?</div>
-                                <NewPostDrawer/>
+                                <NewPostDrawer userID={user.id}/>
                             <Separator className="my-4"/>
                             <PostMap userID={user.id} posts={posts}/>
                             <div className="text-lg p-6">Follow more users to see more posts!</div>

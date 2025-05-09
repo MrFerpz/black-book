@@ -8,7 +8,7 @@ async function getPosts(req, res) {
 
 async function newPost(req, res) {
    const content = req.body.content;
-   const userID = Number(req.user.id);
+   const userID = Number(req.body.userID);
    try {
       await prisma.newPost(userID, content);
    } catch(err) {

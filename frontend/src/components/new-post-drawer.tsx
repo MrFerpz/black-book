@@ -16,7 +16,11 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
-  export default function NewPostDrawer() {
+interface Props {
+    userID: number
+}
+
+export default function NewPostDrawer({userID}: Props) {
     const [content, setContent] = useState("");
     const router = useRouter();
 
@@ -27,9 +31,10 @@ import { toast } from "sonner"
     async function submitPost() {
         try {
             await axios.post("http://localhost:4000/api/posts", {
-                content: content 
+                content: content,
+                userID: userID
             }, {withCredentials: true});
-            toast("Successfully added post.");
+            toast("Successfully added post. Please wait 2 seconds for it to appear.");
             router.refresh();
         } catch(err) {
             console.log(err)

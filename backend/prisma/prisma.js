@@ -69,7 +69,8 @@ async function getPostsByFollowing(userID) {
                     username: true
                 }
             }
-        }
+        },
+        orderBy: { created_at: "desc"}
     })
 }
 

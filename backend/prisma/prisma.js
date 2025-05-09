@@ -212,10 +212,10 @@ async function getUserWithPosts(userID) {
                             username: true
                         }
                     }
-                }
+                },
+                orderBy: { created_at: "desc" }
             }
         },
-        orderBy: { created_at: "desc"}
     })
 }
 

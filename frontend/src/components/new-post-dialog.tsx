@@ -7,6 +7,7 @@ import uploadPhotoPost from "@/app/axios-interface/upload-photo-post"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -17,22 +18,42 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "./ui/textarea"
+import { useRouter } from "next/navigation"
+import { Loader } from "lucide-react"
+import { toast } from "sonner"
 
 export default function NewPostDialog({userID}: Props) {
     const [content, setContent] = useState("");
-    const [isLoading, setIsLoading] = useState(false)
+    const [isOpen, setIsOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+
+    function toggleOpen() {
+        setIsOpen(!isOpen)
+    }
+
+    async function submitPost(e: any) {
+        setIsLoading(true);
+        await uploadPhotoPost(e, userID);
+        router.refresh();
+        setTimeout(() => {
+            setIsLoading(false); 
+            setIsOpen(false)
+            toast("New post added.")}, 3500)
+        }
 
     return (
-        <Dialog>
-            <DialogTrigger asChild>
+        <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <DialogTrigger className="hover:cursor-pointer" onClick={toggleOpen} asChild>
                 <Button variant="outline">New Post</Button>
             </DialogTrigger>
                 <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-                <DialogTitle>New Post</DialogTitle>
-            </DialogHeader>
+                    <DialogHeader>
+                        <DialogTitle>New Post</DialogTitle>
+                    </DialogHeader>
         <div className="grid gap-4 py-4">
-        <form encType="multipart/form-data" onSubmit={(e) => uploadPhotoPost(e, userID)}>
+            { isLoading ? <div className="flex justify-center"><Loader className="animate-spin"/></div> : 
+        <form encType="multipart/form-data" onSubmit={submitPost}>
             <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="content" className="text-right">
                 Your post
@@ -46,9 +67,9 @@ export default function NewPostDialog({userID}: Props) {
                 <Input name="photopost" accept="image/png, image/jpeg" type="file" className="col-span-3" />
             </div>
             <div className="mt-3 flex justify-center">
-                <Button type="submit">Submit post</Button>
+                <Button className="hover:cursor-pointer hover:bg-slate-800" type="submit">Submit post</Button>
             </div>
-            </form>
+            </form>}
           </div>
       </DialogContent>
     </Dialog>

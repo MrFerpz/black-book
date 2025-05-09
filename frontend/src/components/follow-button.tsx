@@ -24,13 +24,13 @@ export function FollowButton({user, currentUserID, isFollowing}: Props) {
             setIsLoading(true);
             await unfollow(currentUserID, user.id);
             router.refresh();
-            setTimeout(() => {setIsLoading(false); toast(`You followed ${user.username}`)}, 3900);
+            setTimeout(() => {setIsLoading(false); toast(`You unfollowed ${user.username}`)}, 3900);
         } else {
             setFollowing(true);
             setIsLoading(true);
             await follow(currentUserID, user.id);
             router.refresh();
-            setTimeout(() => {setIsLoading(false); toast(`You unfollowed ${user.username}`)}, 3900)
+            setTimeout(() => {setIsLoading(false); toast(`You followed ${user.username}`)}, 3900)
         }
     }
 

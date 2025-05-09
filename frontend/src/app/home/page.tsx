@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Logo from "../../../public/bbLogoCropped.png"
 import { Separator } from "@/components/ui/separator"
-import NewPostDrawer from "../../components/new-post-drawer"
 import FollowingPane from "@/components/following-pane"
 import PostMap from "@/components/postmap"
 import { getCurrentUser } from "../axios-interface/get-current-user"
@@ -23,7 +22,6 @@ export default async function HomePage() {
                             <Separator className="w-[90%] my-4"/>
                             <div className="text-xl h-[35px]">What's cookin', <b>{user.username}</b>?</div>
                                 <NewPostDialog userID={user.id}/>
-                                {/* <NewPostDrawer userID={user.id}/> */}
                             <Separator className="my-4"/>
                             <PostMap userID={user.id} posts={posts}/>
                             <div className="text-lg p-6">Follow more users to see more posts!</div>

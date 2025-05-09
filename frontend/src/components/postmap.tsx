@@ -28,7 +28,7 @@ export default function PostMap({posts, userID}: Props) {
                     let avatarLink = "https://xojkgyryuzebqbbahcbh.supabase.co/storage/v1/object/public/avatars/" + post.authorId
 
                     return (
-                        <Card className = "w-9/10 mb-5 mt-5 gap-4" key = {post.id}>
+                        <Card className = "w-8/10 mb-5 mt-5 gap-4" key = {post.id}>
                             <CardHeader className="flex">
                                 <a href={link}>
                                     <Avatar className="w-[35px] h-[35px] border-solid border-slate-900 border-[2px]">
@@ -46,7 +46,7 @@ export default function PostMap({posts, userID}: Props) {
                                 </div>
                             </CardHeader>
                             <CardContent>{post.content}</CardContent>
-                            {post.url ? (<img className="w-full h-auto object-fit" src={post.url}/>) : null}
+                            {post.url ? (<img className="w-full aspect-square object-cover" src={post.url}/>) : null}
                             <div className="flex w-[4/10] pl-[24px] gap-2">
                                 <LikeButton userID={userID} postID={post.id}/>
                                 <MessageSquare className="hover:cursor-pointer hover:opacity-40"/>

@@ -45,6 +45,6 @@ indexRouter.post("/api/posts/photo/:userID",
     upload.single('photopost'), 
     indexController.newPostReturningID, 
     uploadController.uploadPhotoPost,
-    uploadController.linkURLToPrisma)
+    uploadController.addURLtoDatabase)
 
 module.exports = indexRouter

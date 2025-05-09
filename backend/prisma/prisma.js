@@ -326,9 +326,10 @@ async function checkLiked(postID, userID) {
 }
 
 async function addURLtoDatabase(postID, url) {
-    await prisma.post.upsert({
+    const numberPostID = Number(postID)
+    return await prisma.post.update({
         where: {
-            id: postID
+            id: numberPostID
         },
         data: {
             url: url

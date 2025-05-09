@@ -31,7 +31,6 @@ async function getAvatarURL(req, res) {
 
 async function uploadPhotoPost(req, res, next) {
     const postID = req.postID.toString();
-    console.log(req.file);
 
     const { data, error } = await supabase.storage.from('photoposts').upload(postID, req.file.buffer, {
         contentType: req.file.mimetype,
@@ -40,7 +39,7 @@ async function uploadPhotoPost(req, res, next) {
     });
 
     if (data) {
-        return next();
+        next();
     } else {
         return res.json(error)
     }
@@ -58,16 +57,15 @@ async function getPhotoPostURL(req, res) {
 async function addURLtoDatabase(req, res) {
     const postID = req.postID.toString();
     const { data } = supabase.storage.from("photoposts").getPublicUrl(postID);
-    if (data) {
+    const url = data.publicUrl
+
         try {
-            await prisma.addURLtoDatabase(postID, data);
-            return res.json("Attach URL to prisma complete.")
+            await prisma.addURLtoDatabase(postID, url);
+            return res.json("Attach URL to prisma complete.");
         } catch(err) {
-            return err
+            console.log(err);
+            return res.json(err)
         }
-    } else {
-        return res.json(err)
-    }
 }
 
 module.exports = {

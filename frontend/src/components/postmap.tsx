@@ -61,7 +61,6 @@ export default function PostMap({posts, userID}: Props) {
     )}
     else return (
         <div>
-            <div className="w-full h-[2px] bg-slate-400"/>
             <div className="flex justify-center bg-slate-100 p-8 mt-2 rounded-lg">
                 <div className="text-lg">No posts yet.</div>
             </div>

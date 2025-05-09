@@ -25,7 +25,7 @@ export default async function HomePage() {
                                 <NewPostDrawer/>
                             <Separator className="my-4"/>
                             <PostMap userID={user.id} posts={posts}/>
-                            <div className="text-lg p-6 bg-slate-100 rounded-lg">Follow more users to see more posts!</div>
+                            <div className="text-lg p-6">Follow more users to see more posts!</div>
                         </div>
                     </div>
                     <FollowingPane currentUserID={user.id}/>

@@ -6,6 +6,7 @@ import LikedByText from "@/components/liked-by-text"
 import CommentAccordion from "@/components/comment-accordion"
 import { Post, SimpleUser, User } from "@/app/interfaces/interfaces"
 import { Forward, MessageSquare } from "lucide-react"
+import { Separator } from "@radix-ui/react-separator"
 
 interface Props {
     posts: Post[],
@@ -14,6 +15,7 @@ interface Props {
 
 export default function PostMap({posts, userID}: Props) {
 
+    if (posts.length > 0) {
     return (
             <div className="w-full flex flex-col items-center">
                 {posts.map((post: Post) => {
@@ -56,6 +58,13 @@ export default function PostMap({posts, userID}: Props) {
                     })
                 }
             </div>
-
+    )}
+    else return (
+        <div>
+            <div className="w-full h-[2px] bg-slate-400"/>
+            <div className="flex justify-center bg-slate-100 p-8 mt-2 rounded-lg">
+                <div className="text-lg">No posts yet.</div>
+            </div>
+        </div>
     )
 }

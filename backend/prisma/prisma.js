@@ -44,6 +44,35 @@ async function getAllPosts() {
     })
 }
 
+async function getPostsByFollowing(userID) {
+    return await prisma.post.findMany({
+        where: {
+            OR: [
+                    {
+                        authorId: userID
+                    },
+                    {
+                    author: {
+                        followedBy: {
+                            some: {
+                                id: userID
+                                }
+                            }
+                        }
+                    }
+                ]
+             },
+        include: {
+            author: {
+                select: {
+                    id: true,
+                    username: true
+                }
+            }
+        }
+    })
+}
+
 async function newPost(userID, content) {
     return await prisma.post.create({
         data: {
@@ -314,5 +343,6 @@ module.exports = {
     follow,
     unfollow,
     unlikePost,
-    checkLiked
+    checkLiked,
+    getPostsByFollowing
 }

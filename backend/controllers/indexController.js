@@ -170,6 +170,17 @@ async function checkLiked(req, res) {
    }
 }
 
+async function getPostsByFollowing(req, res) {
+   const userID = Number(req.params.userID);
+   try {
+      const result = await prisma.getPostsByFollowing(userID);
+      return res.json(result)
+   } catch(err) {
+      console.log(err);
+      return err
+   }
+}
+
 module.exports = { 
    getPosts, 
    newPost, 
@@ -180,6 +191,7 @@ module.exports = {
    putBio, 
    getUser, 
    getUserWithPosts,
+   getPostsByFollowing,
    getFollowing,
    getNotFollowing,
    follow,

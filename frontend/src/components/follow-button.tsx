@@ -5,6 +5,7 @@ import { follow, unfollow } from "@/app/axios-interface/follow"
 import { Button, buttonVariants } from "./ui/button"
 import { useRouter } from "next/navigation"
 import { Loader } from "lucide-react"
+import { toast } from "sonner"
 
 interface Props {
     user: User,
@@ -22,14 +23,14 @@ export function FollowButton({user, currentUserID, isFollowing}: Props) {
             setFollowing(false);
             setIsLoading(true);
             await unfollow(currentUserID, user.id);
-            setIsLoading(false);
             router.refresh();
+            setTimeout(() => {setIsLoading(false); toast(`You followed ${user.username}`)}, 3900);
         } else {
             setFollowing(true);
             setIsLoading(true);
             await follow(currentUserID, user.id);
-            setIsLoading(false)
             router.refresh();
+            setTimeout(() => {setIsLoading(false); toast(`You unfollowed ${user.username}`)}, 3900)
         }
     }
 

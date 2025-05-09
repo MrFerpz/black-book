@@ -3,7 +3,8 @@ import axios from "axios";
 import { useState } from "react";
 import { Textarea } from "./ui/textarea";
 import { useRouter } from "next/navigation";
-import { SquarePen, CircleX, MessageSquare } from "lucide-react";
+import { toast } from "sonner";
+import { SquarePen, CircleX, MessageSquare, Loader } from "lucide-react";
 
 interface Props {
     userID: number,
@@ -12,6 +13,7 @@ interface Props {
 
 export default function BioButton({userID, currentUserID}: Props) {
     const [formVisible, setFormVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [content, setContent] = useState("")
     const router = useRouter();
 
@@ -29,6 +31,7 @@ export default function BioButton({userID, currentUserID}: Props) {
 
     async function updateBio(e: any) {
         e.preventDefault();
+        setIsLoading(true);
         try {
             await axios.put(`http://localhost:4000/api/put/${userID}/bio`, {
             content: content,
@@ -36,6 +39,8 @@ export default function BioButton({userID, currentUserID}: Props) {
         }, { withCredentials: true });
             setContent("")
             router.refresh();
+            setTimeout(() => setIsLoading(false), 3600);
+            toast("Successfully updated bio.");
             toggleVisibility();
         }
         catch (err) {
@@ -64,11 +69,13 @@ export default function BioButton({userID, currentUserID}: Props) {
     }
 
     return (
-        <>
-        <div onClick={toggleVisibility} className="flex gap-3 bg-slate-100 rounded-lg p-3 hover:cursor-pointer hover:opacity-40">
-            <SquarePen/>
-            <div>Edit bio</div>
+        <div onClick={toggleVisibility} className="flex justify-center gap-3 bg-slate-100 rounded-lg p-3 hover:cursor-pointer hover:opacity-40">
+            {isLoading ? <div className="flex justify-center"><Loader className="animate-spin"/></div> : (
+                <div className="flex gap-2 justify-space-around">
+                    <SquarePen/>
+                    <div>Edit Bio</div>
+                </div>
+            )}
         </div>
-        </>
     )
 }

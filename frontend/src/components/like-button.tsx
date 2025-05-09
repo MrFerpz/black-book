@@ -4,6 +4,7 @@ import { Heart, Loader } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useState } from "react";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 interface Props {
     postID: number,
@@ -41,13 +42,13 @@ export default function LikeButton({postID, userID}: Props) {
                 userID: userID
             });
             setLiked(true);
-            setIsLoading(false);
         }
         catch(err) {
                 console.log(err);
                 setIsLoading(false);
             }
         router.refresh();
+        setTimeout(() => {setIsLoading(false); toast("Liked post.")}, 3500)
     }
 
     async function unlikePost(postID: number, userID: number) {
@@ -57,12 +58,12 @@ export default function LikeButton({postID, userID}: Props) {
             userID: userID
         });
         setLiked(false);
-        setIsLoading(false)
         } catch(err) {
             console.log(err);
             setIsLoading(false)
         }
         router.refresh();
+        setTimeout(() => {setIsLoading(false); toast("Unliked post.")}, 3600);
     }
 
     if (isLoading) {

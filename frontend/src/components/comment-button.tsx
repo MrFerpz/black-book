@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Textarea } from "./ui/textarea";
 import { useRouter } from "next/navigation";
 import { SendHorizontal, CircleX, MessageSquare, Loader } from "lucide-react";
+import { toast } from "sonner";
 
 interface Props {
     postID: Number,
@@ -39,7 +40,9 @@ export default function CommentButton({postID, userID}: Props) {
             setContent("");
             router.refresh();
             setTimeout(() => {
-                setIsLoading(false)}, 1800
+                setIsLoading(false);
+                toast("Successfully posted comment.")
+            }, 3600
             )
         }
         catch (err) {
@@ -53,7 +56,7 @@ export default function CommentButton({postID, userID}: Props) {
             <>
                 <div className="bg-slate-100 rounded-lg p-1 m-1">
                     {isLoading ? (
-                        <div className="flex justify-content">
+                        <div className="flex w-full justify-center">
                             <Loader className="animate-spin"/>
                         </div>
                     ) : (

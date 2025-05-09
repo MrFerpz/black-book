@@ -46,7 +46,7 @@ if (comments.length > 0)
     <Separator/>
         <Accordion type="single" collapsible className="w-full px-6">
             <AccordionItem value="comments">
-                <AccordionTrigger className="hover:cursor-pointer">See comments</AccordionTrigger>
+                <AccordionTrigger className="hover:cursor-pointer">See ({comments.length}) comments</AccordionTrigger>
                 <Separator/>
                     {comments.map((comment: Comment) => {
                         let link = "/profile/" + comment.author.id.toString();
@@ -82,7 +82,7 @@ if (comments.length > 0)
     return (
         <Accordion type="single" collapsible className="w-full px-6">
             <AccordionItem value="comments">
-                <AccordionTrigger className="hover:cursor-pointer">See comments</AccordionTrigger>
+                <AccordionTrigger className="hover:cursor-pointer">See (0) comments</AccordionTrigger>
                 <Separator/>
                             <AccordionContent className="bg-slate-100 rounded-lg mt-3 p-3">
                                 <div className="px-3">No comments yet. Be the first!</div>

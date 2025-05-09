@@ -5,6 +5,7 @@ import LikeButton from "./like-button"
 import LikedByText from "@/components/liked-by-text"
 import CommentAccordion from "@/components/comment-accordion"
 import { Post, SimpleUser, User } from "@/app/interfaces/interfaces"
+import { Forward, MessageSquare } from "lucide-react"
 
 interface Props {
     posts: Post[],
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function PostMap({posts, userID}: Props) {
+
     return (
             <div className="w-full flex flex-col items-center">
                 {posts.map((post: Post) => {
@@ -24,7 +26,7 @@ export default function PostMap({posts, userID}: Props) {
                     let avatarLink = "https://xojkgyryuzebqbbahcbh.supabase.co/storage/v1/object/public/avatars/" + post.authorId
 
                     return (
-                        <Card className = "w-9/10 mb-5 mt-5" key = {post.id}>
+                        <Card className = "w-9/10 mb-5 mt-5 gap-4" key = {post.id}>
                             <CardHeader className="flex">
                                 <a href={link}>
                                     <Avatar className="w-[35px] h-[35px] border-solid border-slate-900 border-[2px]">
@@ -44,8 +46,10 @@ export default function PostMap({posts, userID}: Props) {
                             <CardContent>{post.content}</CardContent>
                             <div className="flex w-[4/10] pl-[24px] gap-2">
                                 <LikeButton userID={userID} postID={post.id}/>
-                                <LikedByText postID={post.id}/>
+                                <MessageSquare className="hover:cursor-pointer hover:opacity-40"/>
+                                <Forward className="hover:cursor-pointer hover:opacity-40"/>
                             </div>
+                            <LikedByText postID={post.id}/>
                             <CommentAccordion userID={userID} postID={post.id}/>
                         </Card>
                         )

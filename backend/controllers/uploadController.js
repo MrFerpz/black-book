@@ -21,10 +21,8 @@ async function uploadAvatar(req, res) {
 
 async function getURL(req, res) {
     const userID = req.params.userID.toString();
-    console.log(userID);
     const { data } = supabase.storage.from("avatars").getPublicUrl(userID);
     if (data) {
-        console.log(data.publicUrl)
         return res.json(data.publicUrl);
     } else {
         return res.json(null)

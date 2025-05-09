@@ -43,6 +43,19 @@ export function LoginForm({
     }
   }
 
+  async function loginAsGuest(e: any) {
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:4000/api/login", {
+        username: "Guest",
+        password: "Guest"
+      }, { withCredentials: true });
+      router.push("/home")
+    } catch(err) {
+      console.log(err)
+    }
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -81,14 +94,19 @@ export function LoginForm({
                   Login
                 </Button>
               </div>
-            </div>
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <a href="/signup" className="underline underline-offset-4">
-                Sign up
-              </a>
-            </div>
+              </div>
           </form>
+            <form onSubmit={loginAsGuest}>
+              <Button type="submit" variant="secondary" className="mt-3 w-full hover:cursor-pointer hover:bg-slate-300">
+                Guest Login
+              </Button>
+            </form>
+              <div className="mt-4 text-center text-sm">
+                Don&apos;t have an account?{" "}
+                <a href="/signup" className="underline underline-offset-4">
+                Sign up
+                </a>
+              </div>
         </CardContent>
       </Card>
     </div>

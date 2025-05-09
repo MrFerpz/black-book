@@ -1,18 +1,12 @@
 -- Primary
-- Allow adding profile picture
 - Make homepage only show friend's posts (can maybe add tab to toggle show all?)
 
 -- Secondary
-- Clean up client vs server & refreshing logic on followers tab
-- Add loading states
+- Add indication that page is loading (most needed on login but also for following, posrs, comments)
 - Allow adding picture posts?
-
 
 -------
 Bugs
 
 Update profile picture successfully uploads to supabase but page shows old pic
-Fix backup profile picture error
-Fix when you look at others' profiles, it shows your profile
-
-
+    -- on postmap/comments but not profile. should apply same timestamp url I think?

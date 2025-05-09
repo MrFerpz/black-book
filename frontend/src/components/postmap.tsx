@@ -6,6 +6,7 @@ import LikeButton from "./like-button"
 import LikedByText from "@/components/liked-by-text"
 import CommentAccordion from "@/components/comment-accordion"
 import { Post, SimpleUser, User } from "@/app/interfaces/interfaces"
+import { timeStamp } from "console"
 
 interface Props {
     posts: Post[],
@@ -23,8 +24,8 @@ export default function PostMap({posts, userID}: Props) {
                     const formattedDate = removedTZ[0].split("T");
                     const time = formattedDate[1];
                     const date = formattedDate[0];
-                    const link = "/profile/" + post.author.id;
-                    const avatarLink = "https://xojkgyryuzebqbbahcbh.supabase.co/storage/v1/object/public/avatars/" + post.author.id;
+                    const link = "/profile/" + post.authorId;
+                    let avatarLink = "https://xojkgyryuzebqbbahcbh.supabase.co/storage/v1/object/public/avatars/" + post.authorId
 
                     return (
                         <Card className = "w-9/10 mb-5 mt-5" key = {post.id}>

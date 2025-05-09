@@ -15,7 +15,7 @@ export interface User extends SimpleUser {
 // for posts
 export interface Post {
     id: number;
-    authorID: number;
+    authorId: number;
     created_at: string;
     content: string;
     author: SimpleUser; // just need username and id
